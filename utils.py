@@ -7,6 +7,7 @@ from datetime import datetime
 DATA_DIR = Path("data")
 PREDICTIONS_FILE = DATA_DIR / "predictions.json"
 USERS_FILE = DATA_DIR / "users.json"
+RESULTS_FILE = DATA_DIR / "results.json"
 
 # Create data directory if it doesn't exist
 DATA_DIR.mkdir(exist_ok=True)
@@ -38,6 +39,33 @@ def save_users(users: Dict) -> None:
     """Save user information"""
     with open(USERS_FILE, "w", encoding="utf-8") as f:
         json.dump(users, f, ensure_ascii=False, indent=2)
+
+
+def load_results() -> Dict:
+    """Load all match results"""
+    if RESULTS_FILE.exists():
+        with open(RESULTS_FILE, "r", encoding="utf-8") as f:
+            return json.load(f)
+    return {}
+
+
+def save_results(results: Dict) -> None:
+    """Save all match results"""
+    with open(RESULTS_FILE, "w", encoding="utf-8") as f:
+        json.dump(results, f, ensure_ascii=False, indent=2)
+
+
+def save_match_result(match_id: str, goals1: int, goals2: int) -> None:
+    """Save goals for a specific match"""
+    results = load_results()
+    results[match_id] = {"goals1": goals1, "goals2": goals2}
+    save_results(results)
+
+
+def get_match_result(match_id: str) -> Optional[Dict]:
+    """Get goals for a specific match"""
+    results = load_results()
+    return results.get(match_id)
 
 
 def register_user(name: str) -> bool:

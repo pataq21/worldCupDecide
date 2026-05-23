@@ -24,16 +24,16 @@ def test_data():
     print(f"✅ Cantidad de partidos: {len(GROUP_STAGE_MATCHES)}")
     assert len(GROUP_STAGE_MATCHES) == 72, "Debe haber 72 partidos (6 por grupo)"
 
-    # Show example group
-    print(f"\n📋 Ejemplo - Grupo A:")
-    print(f"   Equipos: {', '.join(GROUPS['A'])}")
+    # Show example groups
+    print(f"\n📋 Grupos del Mundial 2026:")
+    for group, teams in sorted(GROUPS.items()):
+        print(f"   Grupo {group}: {', '.join(teams)}")
 
+    # Show example matches from group A
+    print(f"\n📋 Ejemplo - Partidos del Grupo A:")
     matches_a = [m for m in GROUP_STAGE_MATCHES if m['group'] == 'A']
-    print(f"   Partidos ({len(matches_a)}):")
-    for m in matches_a[:3]:
+    for m in matches_a:
         print(f"   - {m['team1']} vs {m['team2']}")
-    if len(matches_a) > 3:
-        print(f"   - ... y {len(matches_a) - 3} más")
 
     print("\n✅ Todos los datos están correctos!\n")
 
@@ -48,5 +48,7 @@ if __name__ == "__main__":
         print(f"❌ Error: {e}")
         sys.exit(1)
     except Exception as e:
+        print(f"❌ Error inesperado: {e}")
+        sys.exit(1)
         print(f"❌ Error inesperado: {e}")
         sys.exit(1)
