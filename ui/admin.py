@@ -69,9 +69,6 @@ def tab_admin():
     # Manual result entry
     st.subheader("✏️ Introducir resultados manualmente")
 
-    if st.button("💾 Guardar resultados", type="primary"):
-        _save_all_results()
-
     # Filter matches already played (date <= today)
     past_matches = [m for m in GROUP_STAGE_MATCHES]
 
@@ -81,61 +78,71 @@ def tab_admin():
 
     results = load_results()
 
-    for group_name in sorted(GROUPS.keys()):
-        group_past = [m for m in past_matches if m["group"] == group_name]
-        if not group_past:
-            continue
+    with st.form("admin_results_form"):
+        for group_name in sorted(GROUPS.keys()):
+            group_past = [m for m in past_matches if m["group"] == group_name]
+            if not group_past:
+                continue
 
-        st.subheader(f"Grupo {group_name}")
-        for match in group_past:
-            existing = results.get(match["id"])
-            default_g1 = (
-                str(existing["goals1"])
-                if existing and isinstance(existing, dict)
-                else ""
-            )
-            default_g2 = (
-                str(existing["goals2"])
-                if existing and isinstance(existing, dict)
-                else ""
-            )
-
-            status = "✅" if existing and isinstance(existing, dict) else "⬜"
-
-            date_str = datetime.strptime(match["date"], "%Y-%m-%d").strftime("%d %b")
-            st.caption(f"{status} 📅 {date_str}  •  🇪🇸 {match.get('hora_espana', '')}h")
-
-            col1, col2, col3, col4, col5 = st.columns(
-                [4, 0.4, 0.3, 0.4, 4], vertical_alignment="center"
-            )
-            with col1:
-                st.markdown(
-                    f"<div style='text-align:right'>{match['team1']}</div>",
-                    unsafe_allow_html=True,
+            st.subheader(f"Grupo {group_name}")
+            for match in group_past:
+                existing = results.get(match["id"])
+                default_g1 = (
+                    str(existing["goals1"])
+                    if existing and isinstance(existing, dict)
+                    else ""
                 )
-            with col2:
-                st.text_input(
-                    label=f"G1 {match['id']}",
-                    value=default_g1,
-                    key=f"res_goals1_{match['id']}",
-                    label_visibility="collapsed",
+                default_g2 = (
+                    str(existing["goals2"])
+                    if existing and isinstance(existing, dict)
+                    else ""
                 )
-            with col3:
-                st.markdown(
-                    "<div style='text-align:center'>-</div>",
-                    unsafe_allow_html=True,
-                )
-            with col4:
-                st.text_input(
-                    label=f"G2 {match['id']}",
-                    value=default_g2,
-                    key=f"res_goals2_{match['id']}",
-                    label_visibility="collapsed",
-                )
-            with col5:
-                st.write(match["team2"])
 
-        st.divider()
+                status = "✅" if existing and isinstance(existing, dict) else "⬜"
+
+                date_str = datetime.strptime(match["date"], "%Y-%m-%d").strftime(
+                    "%d %b"
+                )
+                st.caption(
+                    f"{status} 📅 {date_str}  •  🇪🇸 {match.get('hora_espana', '')}h"
+                )
+
+                col1, col2, col3, col4, col5 = st.columns(
+                    [4, 0.4, 0.3, 0.4, 4], vertical_alignment="center"
+                )
+                with col1:
+                    st.markdown(
+                        f"<div style='text-align:right'>{match['team1']}</div>",
+                        unsafe_allow_html=True,
+                    )
+                with col2:
+                    st.text_input(
+                        label=f"G1 {match['id']}",
+                        value=default_g1,
+                        key=f"res_goals1_{match['id']}",
+                        label_visibility="collapsed",
+                    )
+                with col3:
+                    st.markdown(
+                        "<div style='text-align:center'>-</div>",
+                        unsafe_allow_html=True,
+                    )
+                with col4:
+                    st.text_input(
+                        label=f"G2 {match['id']}",
+                        value=default_g2,
+                        key=f"res_goals2_{match['id']}",
+                        label_visibility="collapsed",
+                    )
+                with col5:
+                    st.write(match["team2"])
+
+            st.divider()
+
+        submitted = st.form_submit_button("💾 Guardar resultados", type="primary")
+
+    if submitted:
+        _save_all_results()
 
 
 def _save_all_results():
