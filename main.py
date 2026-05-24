@@ -107,6 +107,8 @@ def tab_results():
         raw2 = st.session_state.get(f"goals2_{user}_{match_id}", "")
         try:
             if not raw1.strip() or not raw2.strip():
+                # Clear prediction if either field is empty
+                save_prediction(user, match_id, None)
                 return
             goals1 = int(raw1)
             goals2 = int(raw2)
