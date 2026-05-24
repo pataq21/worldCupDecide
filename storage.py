@@ -10,15 +10,20 @@ import requests
 import streamlit as st
 
 # Detect if we should use GitHub API (production) or local filesystem (dev)
-_GITHUB_TOKEN: Optional[str] = st.secrets.get(
-    "GITHUB_TOKEN", os.getenv("GITHUB_TOKEN", "")
-)
-_GITHUB_REPO: Optional[str] = st.secrets.get(
-    "GITHUB_REPO", os.getenv("GITHUB_REPO", "")
-)
-_GITHUB_BRANCH: str = st.secrets.get(
-    "GITHUB_BRANCH", os.getenv("GITHUB_BRANCH", "main")
-)
+try:
+    _GITHUB_TOKEN = st.secrets["GITHUB_TOKEN"]
+except (KeyError, FileNotFoundError):
+    _GITHUB_TOKEN = os.getenv("GITHUB_TOKEN", "")
+
+try:
+    _GITHUB_REPO = st.secrets["GITHUB_REPO"]
+except (KeyError, FileNotFoundError):
+    _GITHUB_REPO = os.getenv("GITHUB_REPO", "")
+
+try:
+    _GITHUB_BRANCH = st.secrets["GITHUB_BRANCH"]
+except (KeyError, FileNotFoundError):
+    _GITHUB_BRANCH = os.getenv("GITHUB_BRANCH", "main")
 
 USE_GITHUB = bool(_GITHUB_TOKEN and _GITHUB_REPO)
 

@@ -42,6 +42,11 @@ st.set_page_config(
 
 st.title("⚽ Porra Mundial 2026")
 
+# Debug: show storage mode
+from storage import USE_GITHUB
+
+st.sidebar.caption(f"💾 Almacenamiento: {'GitHub' if USE_GITHUB else 'Local'}")
+
 # Initialize session
 if "current_user" not in st.session_state:
     st.session_state.current_user = None
