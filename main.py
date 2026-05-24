@@ -551,8 +551,8 @@ def main():
     tab1, tab2, tab3, tab4, tab5 = st.tabs(
         [
             "⚽ Fase de grupos",
-            "📊 Tabla de Posiciones",
-            "🏅 Fase Eliminatoria",
+            "📊 Tabla de posiciones",
+            "🏅 Fase eliminatoria",
             "🏆 Clasificación",
             "🔧 Admin",
         ]
