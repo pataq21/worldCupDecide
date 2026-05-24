@@ -147,8 +147,11 @@ def tab_admin():
 
 def _save_all_results():
     """Save all manually entered results at once."""
-    results = load_results()
-    meta = results.pop("_meta", {})
+    old_results = load_results()
+    meta = old_results.pop("_meta", {})
+
+    # Build results from scratch based on form values
+    results = {}
     count = 0
 
     for match in GROUP_STAGE_MATCHES:
@@ -156,12 +159,15 @@ def _save_all_results():
         raw1 = st.session_state.get(f"res_goals1_{match_id}", "")
         raw2 = st.session_state.get(f"res_goals2_{match_id}", "")
         try:
-            g1 = int(raw1) if raw1.strip() else None
-            g2 = int(raw2) if raw2.strip() else None
-            if g1 is not None and g2 is not None and g1 >= 0 and g2 >= 0:
-                results[match_id] = {"goals1": g1, "goals2": g2}
-                count += 1
-        except (ValueError, AttributeError):
+            raw1 = str(raw1).strip() if raw1 is not None else ""
+            raw2 = str(raw2).strip() if raw2 is not None else ""
+            if raw1 and raw2:
+                g1 = int(raw1)
+                g2 = int(raw2)
+                if g1 >= 0 and g2 >= 0:
+                    results[match_id] = {"goals1": g1, "goals2": g2}
+                    count += 1
+        except (ValueError, TypeError):
             pass
 
     results["_meta"] = meta
