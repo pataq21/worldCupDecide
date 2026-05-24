@@ -1,0 +1,362 @@
+{
+    "A_0_3": {
+        "date": "2026-06-11",
+        "hora_espana": "21:00",
+        "venue": "Estadio Azteca, Ciudad de México"
+    },
+    "A_1_2": {
+        "date": "2026-06-11",
+        "hora_espana": "04:00 (+1)",
+        "venue": "Estadio Akron, Zapopan"
+    },
+    "A_2_3": {
+        "date": "2026-06-18",
+        "hora_espana": "18:00",
+        "venue": "Mercedes-Benz Stadium, Atlanta"
+    },
+    "A_0_1": {
+        "date": "2026-06-18",
+        "hora_espana": "03:00 (+1)",
+        "venue": "Estadio Akron, Zapopan"
+    },
+    "A_0_2": {
+        "date": "2026-06-24",
+        "hora_espana": "03:00 (+1)",
+        "venue": "Estadio Azteca, Ciudad de México"
+    },
+    "A_1_3": {
+        "date": "2026-06-24",
+        "hora_espana": "03:00 (+1)",
+        "venue": "Estadio BBVA, Monterrey"
+    },
+    "B_0_3": {
+        "date": "2026-06-12",
+        "hora_espana": "21:00",
+        "venue": "BMO Field, Toronto"
+    },
+    "B_1_2": {
+        "date": "2026-06-13",
+        "hora_espana": "21:00",
+        "venue": "Levi's Stadium, Santa Clara"
+    },
+    "B_2_3": {
+        "date": "2026-06-18",
+        "hora_espana": "21:00",
+        "venue": "SoFi Stadium, Inglewood"
+    },
+    "B_0_1": {
+        "date": "2026-06-18",
+        "hora_espana": "00:00 (+1)",
+        "venue": "BC Place, Vancouver"
+    },
+    "B_0_2": {
+        "date": "2026-06-24",
+        "hora_espana": "21:00",
+        "venue": "BC Place, Vancouver"
+    },
+    "B_1_3": {
+        "date": "2026-06-24",
+        "hora_espana": "21:00",
+        "venue": "Lumen Field, Seattle"
+    },
+    "C_0_3": {
+        "date": "2026-06-13",
+        "hora_espana": "00:00 (+1)",
+        "venue": "MetLife Stadium, East Rutherford"
+    },
+    "C_1_2": {
+        "date": "2026-06-13",
+        "hora_espana": "03:00 (+1)",
+        "venue": "Gillette Stadium, Foxborough"
+    },
+    "C_2_3": {
+        "date": "2026-06-19",
+        "hora_espana": "00:00 (+1)",
+        "venue": "Gillette Stadium, Foxborough"
+    },
+    "C_0_1": {
+        "date": "2026-06-19",
+        "hora_espana": "02:30 (+1)",
+        "venue": "Lincoln Financial Field, Philadelphia"
+    },
+    "C_0_2": {
+        "date": "2026-06-24",
+        "hora_espana": "00:00 (+1)",
+        "venue": "Hard Rock Stadium, Miami Gardens"
+    },
+    "C_1_3": {
+        "date": "2026-06-24",
+        "hora_espana": "00:00 (+1)",
+        "venue": "Mercedes-Benz Stadium, Atlanta"
+    },
+    "D_0_3": {
+        "date": "2026-06-12",
+        "hora_espana": "03:00 (+1)",
+        "venue": "SoFi Stadium, Inglewood"
+    },
+    "D_1_2": {
+        "date": "2026-06-13",
+        "hora_espana": "06:00 (+1)",
+        "venue": "BC Place, Vancouver"
+    },
+    "D_0_1": {
+        "date": "2026-06-19",
+        "hora_espana": "21:00",
+        "venue": "Lumen Field, Seattle"
+    },
+    "D_2_3": {
+        "date": "2026-06-19",
+        "hora_espana": "05:00 (+1)",
+        "venue": "Levi's Stadium, Santa Clara"
+    },
+    "D_0_2": {
+        "date": "2026-06-25",
+        "hora_espana": "04:00 (+1)",
+        "venue": "SoFi Stadium, Inglewood"
+    },
+    "D_1_3": {
+        "date": "2026-06-25",
+        "hora_espana": "04:00 (+1)",
+        "venue": "Levi's Stadium, Santa Clara"
+    },
+    "E_0_1": {
+        "date": "2026-06-14",
+        "hora_espana": "19:00",
+        "venue": "NRG Stadium, Houston"
+    },
+    "E_2_3": {
+        "date": "2026-06-14",
+        "hora_espana": "01:00 (+1)",
+        "venue": "Lincoln Financial Field, Philadelphia"
+    },
+    "E_0_2": {
+        "date": "2026-06-20",
+        "hora_espana": "22:00",
+        "venue": "BMO Field, Toronto"
+    },
+    "E_1_3": {
+        "date": "2026-06-20",
+        "hora_espana": "02:00 (+1)",
+        "venue": "Arrowhead Stadium, Kansas City"
+    },
+    "E_1_2": {
+        "date": "2026-06-25",
+        "hora_espana": "22:00",
+        "venue": "Lincoln Financial Field, Philadelphia"
+    },
+    "E_0_3": {
+        "date": "2026-06-25",
+        "hora_espana": "22:00",
+        "venue": "MetLife Stadium, East Rutherford"
+    },
+    "F_0_1": {
+        "date": "2026-06-14",
+        "hora_espana": "22:00",
+        "venue": "AT&T Stadium, Arlington"
+    },
+    "F_2_3": {
+        "date": "2026-06-14",
+        "hora_espana": "04:00 (+1)",
+        "venue": "Estadio BBVA, Monterrey"
+    },
+    "F_0_2": {
+        "date": "2026-06-20",
+        "hora_espana": "19:00",
+        "venue": "NRG Stadium, Houston"
+    },
+    "F_1_3": {
+        "date": "2026-06-20",
+        "hora_espana": "06:00 (+1)",
+        "venue": "Estadio BBVA, Monterrey"
+    },
+    "F_1_2": {
+        "date": "2026-06-25",
+        "hora_espana": "01:00 (+1)",
+        "venue": "AT&T Stadium, Arlington"
+    },
+    "F_0_3": {
+        "date": "2026-06-25",
+        "hora_espana": "01:00 (+1)",
+        "venue": "Arrowhead Stadium, Kansas City"
+    },
+    "G_0_1": {
+        "date": "2026-06-15",
+        "hora_espana": "21:00",
+        "venue": "Lumen Field, Seattle"
+    },
+    "G_2_3": {
+        "date": "2026-06-15",
+        "hora_espana": "03:00 (+1)",
+        "venue": "SoFi Stadium, Inglewood"
+    },
+    "G_0_2": {
+        "date": "2026-06-21",
+        "hora_espana": "21:00",
+        "venue": "SoFi Stadium, Inglewood"
+    },
+    "G_1_3": {
+        "date": "2026-06-21",
+        "hora_espana": "03:00 (+1)",
+        "venue": "BC Place, Vancouver"
+    },
+    "G_1_2": {
+        "date": "2026-06-26",
+        "hora_espana": "05:00 (+1)",
+        "venue": "Lumen Field, Seattle"
+    },
+    "G_0_3": {
+        "date": "2026-06-26",
+        "hora_espana": "05:00 (+1)",
+        "venue": "BC Place, Vancouver"
+    },
+    "H_0_3": {
+        "date": "2026-06-15",
+        "hora_espana": "18:00",
+        "venue": "Mercedes-Benz Stadium, Atlanta"
+    },
+    "H_1_2": {
+        "date": "2026-06-15",
+        "hora_espana": "00:00 (+1)",
+        "venue": "Hard Rock Stadium, Miami Gardens"
+    },
+    "H_0_2": {
+        "date": "2026-06-21",
+        "hora_espana": "18:00",
+        "venue": "Mercedes-Benz Stadium, Atlanta"
+    },
+    "H_1_3": {
+        "date": "2026-06-21",
+        "hora_espana": "00:00 (+1)",
+        "venue": "Hard Rock Stadium, Miami Gardens"
+    },
+    "H_2_3": {
+        "date": "2026-06-26",
+        "hora_espana": "02:00 (+1)",
+        "venue": "NRG Stadium, Houston"
+    },
+    "H_0_1": {
+        "date": "2026-06-26",
+        "hora_espana": "02:00 (+1)",
+        "venue": "Estadio Akron, Zapopan"
+    },
+    "I_0_1": {
+        "date": "2026-06-16",
+        "hora_espana": "21:00",
+        "venue": "MetLife Stadium, East Rutherford"
+    },
+    "I_2_3": {
+        "date": "2026-06-16",
+        "hora_espana": "00:00 (+1)",
+        "venue": "Gillette Stadium, Foxborough"
+    },
+    "I_0_2": {
+        "date": "2026-06-22",
+        "hora_espana": "23:00",
+        "venue": "Lincoln Financial Field, Philadelphia"
+    },
+    "I_1_3": {
+        "date": "2026-06-22",
+        "hora_espana": "02:00 (+1)",
+        "venue": "MetLife Stadium, East Rutherford"
+    },
+    "I_0_3": {
+        "date": "2026-06-26",
+        "hora_espana": "21:00",
+        "venue": "Gillette Stadium, Foxborough"
+    },
+    "I_1_2": {
+        "date": "2026-06-26",
+        "hora_espana": "21:00",
+        "venue": "BMO Field, Toronto"
+    },
+    "J_0_1": {
+        "date": "2026-06-16",
+        "hora_espana": "03:00 (+1)",
+        "venue": "Arrowhead Stadium, Kansas City"
+    },
+    "J_2_3": {
+        "date": "2026-06-16",
+        "hora_espana": "06:00 (+1)",
+        "venue": "Levi's Stadium, Santa Clara"
+    },
+    "J_0_2": {
+        "date": "2026-06-22",
+        "hora_espana": "19:00",
+        "venue": "AT&T Stadium, Arlington"
+    },
+    "J_1_3": {
+        "date": "2026-06-22",
+        "hora_espana": "05:00 (+1)",
+        "venue": "Levi's Stadium, Santa Clara"
+    },
+    "J_1_2": {
+        "date": "2026-06-27",
+        "hora_espana": "04:00 (+1)",
+        "venue": "Arrowhead Stadium, Kansas City"
+    },
+    "J_0_3": {
+        "date": "2026-06-27",
+        "hora_espana": "04:00 (+1)",
+        "venue": "AT&T Stadium, Arlington"
+    },
+    "K_0_3": {
+        "date": "2026-06-17",
+        "hora_espana": "19:00",
+        "venue": "NRG Stadium, Houston"
+    },
+    "K_1_2": {
+        "date": "2026-06-17",
+        "hora_espana": "04:00 (+1)",
+        "venue": "Estadio Azteca, Ciudad de México"
+    },
+    "K_0_1": {
+        "date": "2026-06-23",
+        "hora_espana": "19:00",
+        "venue": "NRG Stadium, Houston"
+    },
+    "K_2_3": {
+        "date": "2026-06-23",
+        "hora_espana": "04:00 (+1)",
+        "venue": "Estadio Akron, Zapopan"
+    },
+    "K_0_2": {
+        "date": "2026-06-27",
+        "hora_espana": "01:30 (+1)",
+        "venue": "Hard Rock Stadium, Miami Gardens"
+    },
+    "K_1_3": {
+        "date": "2026-06-27",
+        "hora_espana": "01:30 (+1)",
+        "venue": "Mercedes-Benz Stadium, Atlanta"
+    },
+    "L_0_1": {
+        "date": "2026-06-17",
+        "hora_espana": "22:00",
+        "venue": "AT&T Stadium, Arlington"
+    },
+    "L_2_3": {
+        "date": "2026-06-17",
+        "hora_espana": "01:00 (+1)",
+        "venue": "BMO Field, Toronto"
+    },
+    "L_0_3": {
+        "date": "2026-06-23",
+        "hora_espana": "22:00",
+        "venue": "Gillette Stadium, Foxborough"
+    },
+    "L_1_2": {
+        "date": "2026-06-23",
+        "hora_espana": "01:00 (+1)",
+        "venue": "BMO Field, Toronto"
+    },
+    "L_0_2": {
+        "date": "2026-06-27",
+        "hora_espana": "23:00",
+        "venue": "MetLife Stadium, East Rutherford"
+    },
+    "L_1_3": {
+        "date": "2026-06-27",
+        "hora_espana": "23:00",
+        "venue": "Lincoln Financial Field, Philadelphia"
+    }
+}

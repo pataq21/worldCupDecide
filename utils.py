@@ -1,13 +1,17 @@
 import json
-import os
+from datetime import datetime
 from pathlib import Path
 from typing import Dict, List, Optional
-from datetime import datetime
+
+from filelock import FileLock
 
 DATA_DIR = Path("data")
 PREDICTIONS_FILE = DATA_DIR / "predictions.json"
 USERS_FILE = DATA_DIR / "users.json"
 RESULTS_FILE = DATA_DIR / "results.json"
+PREDICTIONS_LOCK = DATA_DIR / "predictions.json.lock"
+USERS_LOCK = DATA_DIR / "users.json.lock"
+RESULTS_LOCK = DATA_DIR / "results.json.lock"
 
 # Create data directory if it doesn't exist
 DATA_DIR.mkdir(exist_ok=True)
@@ -57,9 +61,10 @@ def save_results(results: Dict) -> None:
 
 def save_match_result(match_id: str, goals1: int, goals2: int) -> None:
     """Save goals for a specific match"""
-    results = load_results()
-    results[match_id] = {"goals1": goals1, "goals2": goals2}
-    save_results(results)
+    with FileLock(RESULTS_LOCK):
+        results = load_results()
+        results[match_id] = {"goals1": goals1, "goals2": goals2}
+        save_results(results)
 
 
 def get_match_result(match_id: str) -> Optional[Dict]:
@@ -70,22 +75,24 @@ def get_match_result(match_id: str) -> Optional[Dict]:
 
 def register_user(name: str) -> bool:
     """Register a new user"""
-    users = load_users()
+    with FileLock(USERS_LOCK):
+        users = load_users()
 
-    if name in users:
-        return False
+        if name in users:
+            return False
 
-    users[name] = {
-        "registration_date": datetime.now().isoformat(),
-        "points": 0,
-    }
+        users[name] = {
+            "registration_date": datetime.now().isoformat(),
+            "points": 0,
+        }
 
-    save_users(users)
+        save_users(users)
 
     # Create empty predictions entry for the user
-    predictions = load_predictions()
-    predictions[name] = {}
-    save_predictions(predictions)
+    with FileLock(PREDICTIONS_LOCK):
+        predictions = load_predictions()
+        predictions[name] = {}
+        save_predictions(predictions)
 
     return True
 
@@ -96,15 +103,19 @@ def get_users() -> List[str]:
     return sorted(list(users.keys()))
 
 
-def save_prediction(user: str, match_id: str, prediction: str) -> None:
-    """Save a user's prediction (1, X, 2)"""
-    predictions = load_predictions()
+def save_prediction(user: str, match_id: str, prediction) -> None:
+    """Save a user's prediction (goals dict or 1/X/2 string)"""
+    with FileLock(PREDICTIONS_LOCK):
+        predictions = load_predictions()
 
-    if user not in predictions:
-        predictions[user] = {}
+        if user not in predictions:
+            predictions[user] = {}
 
-    predictions[user][match_id] = prediction
-    save_predictions(predictions)
+        if prediction is None:
+            predictions[user].pop(match_id, None)
+        else:
+            predictions[user][match_id] = prediction
+        save_predictions(predictions)
 
 
 def get_user_predictions(user: str) -> Dict[str, str]:
@@ -113,38 +124,54 @@ def get_user_predictions(user: str) -> Dict[str, str]:
     return predictions.get(user, {})
 
 
-def get_prediction(user: str, match_id: str) -> Optional[str]:
+def get_prediction(user: str, match_id: str):
     """Get a user's prediction for a specific match"""
     predictions = load_predictions()
     return predictions.get(user, {}).get(match_id)
 
 
-def calculate_points(user: str, matches_with_result: Dict) -> int:
+def _get_outcome(goals1: int, goals2: int) -> str:
+    """Return '1' (home win), 'X' (draw), or '2' (away win)."""
+    if goals1 > goals2:
+        return "1"
+    elif goals1 < goals2:
+        return "2"
+    return "X"
+
+
+def calculate_user_points(user: str) -> int:
     """
-    Calculate a user's points based on correct predictions.
-    matches_with_result: {match_id: "1" or "X" or "2"}
+    Calculate a user's total points.
+    - 3 pts for exact score match
+    - 1 pt for correct outcome (1/X/2) but wrong score
     """
     predictions = get_user_predictions(user)
+    results = load_results()
     points = 0
 
-    for match_id, result in matches_with_result.items():
-        prediction = predictions.get(match_id)
-        if prediction and prediction == result:
+    for match_id, result in results.items():
+        pred = predictions.get(match_id)
+        if not pred or not isinstance(pred, dict):
+            continue
+
+        pred_g1 = pred.get("goals1")
+        pred_g2 = pred.get("goals2")
+        real_g1 = result.get("goals1")
+        real_g2 = result.get("goals2")
+
+        if pred_g1 is None or pred_g2 is None or real_g1 is None or real_g2 is None:
+            continue
+
+        if pred_g1 == real_g1 and pred_g2 == real_g2:
+            points += 3
+        elif _get_outcome(pred_g1, pred_g2) == _get_outcome(real_g1, real_g2):
             points += 1
 
     return points
 
 
-def update_user_points(user: str, points: int) -> None:
-    """Update a user's total points"""
-    users = load_users()
-    if user in users:
-        users[user]["points"] = points
-        save_users(users)
-
-
 def get_ranking() -> List[tuple]:
-    """Get user ranking sorted by points"""
+    """Get user ranking sorted by points (computed dynamically)."""
     users = load_users()
-    ranking = [(name, data["points"]) for name, data in users.items()]
+    ranking = [(name, calculate_user_points(name)) for name in users]
     return sorted(ranking, key=lambda x: x[1], reverse=True)

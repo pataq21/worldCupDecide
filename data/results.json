@@ -1,10 +1,38 @@
 {
-  "A_0_2": {
-    "goals1": 2,
-    "goals2": 3
+  "A_0_3": {
+    "goals1": 1,
+    "goals2": 1
+  },
+  "A_1_2": {
+    "goals1": 1,
+    "goals2": 2
   },
   "A_0_1": {
-    "goals1": 4,
-    "goals2": 1
+    "goals1": 1,
+    "goals2": 3
+  },
+  "A_2_3": {
+    "goals1": 1,
+    "goals2": 4
+  },
+  "A_0_2": {
+    "goals1": 1,
+    "goals2": 0
+  },
+  "A_1_3": {
+    "goals1": 0,
+    "goals2": 0
+  },
+  "B_0_3": {
+    "goals1": 1,
+    "goals2": 0
+  },
+  "B_1_2": {
+    "goals1": 1,
+    "goals2": 2
+  },
+  "B_0_1": {
+    "goals1": 1,
+    "goals2": 2
   }
 }

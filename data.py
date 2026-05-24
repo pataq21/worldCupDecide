@@ -1,4 +1,11 @@
 # World Cup 2026 Data - Group Stage (Official Draw)
+import json
+from pathlib import Path
+
+SCHEDULE_PATH = Path(__file__).parent / "data" / "schedule.json"
+
+with open(SCHEDULE_PATH, encoding="utf-8") as f:
+    MATCH_SCHEDULE = json.load(f)
 
 GROUPS = {
     "A": ["México", "Corea del Sur", "República Checa", "Sudáfrica"],
@@ -19,22 +26,32 @@ GROUPS = {
 
 
 def generate_matches():
-    """Generates all group stage matches (round-robin format)"""
+    """Generates all group stage matches with schedule info, sorted by date"""
     matches = []
 
     for group_name, teams in GROUPS.items():
-        # Create all possible matchups for the group
         for i in range(len(teams)):
             for j in range(i + 1, len(teams)):
-                matches.append({
-                    "id": f"{group_name}_{i}_{j}",
-                    "group": group_name,
-                    "team1": teams[i],
-                    "team2": teams[j],
-                    "goals1": None,  # Goals by team1
-                    "goals2": None,  # Goals by team2
-                })
+                match_id = f"{group_name}_{i}_{j}"
+                schedule = MATCH_SCHEDULE.get(match_id, {})
+                matches.append(
+                    {
+                        "id": match_id,
+                        "group": group_name,
+                        "team1": teams[i],
+                        "team2": teams[j],
+                        "date": schedule.get("date", ""),
+                        "venue": schedule.get("venue", ""),
+                        "hora_espana": schedule.get("hora_espana", ""),
+                        "goals1": None,
+                        "goals2": None,
+                    }
+                )
 
+    # Sort by date within each group
+    matches.sort(
+        key=lambda m: (m["group"], MATCH_SCHEDULE.get(m["id"], {}).get("date", ""))
+    )
     return matches
 
 
@@ -46,15 +63,17 @@ def calculate_group_standings(group_name):
     from collections import defaultdict
 
     teams = GROUPS[group_name]
-    standings = defaultdict(lambda: {
-        "team": "",
-        "played": 0,
-        "wins": 0,
-        "draws": 0,
-        "losses": 0,
-        "goals_for": 0,
-        "goals_against": 0,
-    })
+    standings = defaultdict(
+        lambda: {
+            "team": "",
+            "played": 0,
+            "wins": 0,
+            "draws": 0,
+            "losses": 0,
+            "goals_for": 0,
+            "goals_against": 0,
+        }
+    )
 
     # Initialize standings for all teams
     for team in teams:
@@ -99,7 +118,7 @@ def calculate_group_standings(group_name):
             x["goals_for"] - x["goals_against"],  # Goal difference
             x["goals_for"],  # Goals for
         ),
-        reverse=True
+        reverse=True,
     )
 
     return sorted_standings

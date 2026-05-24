@@ -1,6 +1,7 @@
 # Virtual environments
 .venv/
 .env/
+.env
 .Python
 
 # Python compiled files
