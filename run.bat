@@ -11,6 +11,6 @@ REM Activar el entorno virtual
 call .venv\Scripts\activate.bat
 
 REM Ejecutar Streamlit
-streamlit run main.py
+streamlit run app.py
 
 pause

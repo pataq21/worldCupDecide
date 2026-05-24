@@ -7,7 +7,7 @@ import requests
 import streamlit as st
 from dotenv import load_dotenv
 
-from data import GROUPS
+from tournament.groups import GROUPS
 
 load_dotenv()
 

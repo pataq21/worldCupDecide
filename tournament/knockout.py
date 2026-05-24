@@ -3,8 +3,8 @@
 from collections import defaultdict
 from typing import Dict, List, Optional
 
-from data import GROUP_STAGE_MATCHES, GROUPS
-from utils import load_results
+from core.data import load_results
+from tournament.groups import GROUP_STAGE_MATCHES, GROUPS
 
 # Round of 32 bracket structure (from FIFA official schedule)
 # Each entry: (match_number, team1_source, team2_source)
@@ -271,7 +271,6 @@ LOSER_FEEDS_TO: Dict[int, tuple] = {}
 
 # Build from round definitions
 for match_num, src1, src2 in ROUND_OF_16:
-    # src1 = "W74" means winner of 74 feeds into this match as team1
     if src1.startswith("W"):
         WINNER_FEEDS_TO[int(src1[1:])] = (match_num, "team1")
     if src2.startswith("W"):
@@ -598,4 +597,3 @@ def _source_label(src: str) -> str:
         return f"1º Grupo {src[1:]}"
     elif src.startswith("2"):
         return f"2º Grupo {src[1:]}"
-    return src
