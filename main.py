@@ -30,7 +30,7 @@ from utils import (
 )
 
 load_dotenv()
-ADMIN_PASSWORD = os.getenv("ADMIN_PASSWORD", "admin123")
+ADMIN_PASSWORD = st.secrets.get("ADMIN_PASSWORD", os.getenv("ADMIN_PASSWORD"))
 
 # Page configuration
 st.set_page_config(
@@ -432,6 +432,15 @@ def tab_knockout():
         st.warning("Selecciona un usuario para ver y predecir la fase eliminatoria")
         return
 
+    # Block predictions once the knockout stage starts (June 28)
+    KNOCKOUT_START = datetime(2026, 6, 28).date()
+    locked = datetime.now().date() >= KNOCKOUT_START
+
+    if locked:
+        st.error(
+            "🔒 Las predicciones están cerradas. La fase eliminatoria ya ha comenzado."
+        )
+
     # Check how many groups are complete
     complete_groups = [g for g in GROUPS if is_group_complete(g)]
     st.caption(
@@ -471,6 +480,8 @@ def tab_knockout():
 
     def _save_ko_prediction(match_num):
         """Save knockout prediction and trigger rerun for propagation."""
+        if locked:
+            return
         key = f"ko_select_{user}_{match_num}"
         selected = st.session_state.get(key)
         if selected and selected != "—":
@@ -513,6 +524,7 @@ def tab_knockout():
             key=f"ko_select_{user}_{match_num}",
             on_change=_save_ko_prediction,
             args=(match_num,),
+            disabled=locked,
         )
 
     # Show rounds in order

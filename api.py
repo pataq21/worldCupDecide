@@ -4,6 +4,7 @@ import os
 from typing import Dict, Optional
 
 import requests
+import streamlit as st
 from dotenv import load_dotenv
 
 from data import GROUPS
@@ -11,7 +12,9 @@ from data import GROUPS
 load_dotenv()
 
 API_BASE = "https://api.football-data.org/v4"
-API_KEY = os.getenv("FOOTBALL_DATA_API_KEY", "")
+API_KEY = st.secrets.get(
+    "FOOTBALL_DATA_API_KEY", os.getenv("FOOTBALL_DATA_API_KEY", "")
+)
 
 # Mapping from football-data.org English team names to our Spanish names
 TEAM_NAME_MAP = {
