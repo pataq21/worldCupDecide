@@ -5,6 +5,8 @@ from typing import Dict, List, Optional
 
 from filelock import FileLock
 
+from storage import USE_GITHUB, read_json, write_json
+
 DATA_DIR = Path("data")
 PREDICTIONS_FILE = DATA_DIR / "predictions.json"
 USERS_FILE = DATA_DIR / "users.json"
@@ -19,6 +21,8 @@ DATA_DIR.mkdir(exist_ok=True)
 
 def load_predictions() -> Dict:
     """Load all user predictions"""
+    if USE_GITHUB:
+        return read_json("predictions.json")
     if PREDICTIONS_FILE.exists():
         with open(PREDICTIONS_FILE, "r", encoding="utf-8") as f:
             return json.load(f)
@@ -27,12 +31,17 @@ def load_predictions() -> Dict:
 
 def save_predictions(predictions: Dict) -> None:
     """Save all user predictions"""
+    if USE_GITHUB:
+        write_json("predictions.json", predictions)
+        return
     with open(PREDICTIONS_FILE, "w", encoding="utf-8") as f:
         json.dump(predictions, f, ensure_ascii=False, indent=2)
 
 
 def load_users() -> Dict:
     """Load user information"""
+    if USE_GITHUB:
+        return read_json("users.json")
     if USERS_FILE.exists():
         with open(USERS_FILE, "r", encoding="utf-8") as f:
             return json.load(f)
@@ -41,12 +50,17 @@ def load_users() -> Dict:
 
 def save_users(users: Dict) -> None:
     """Save user information"""
+    if USE_GITHUB:
+        write_json("users.json", users)
+        return
     with open(USERS_FILE, "w", encoding="utf-8") as f:
         json.dump(users, f, ensure_ascii=False, indent=2)
 
 
 def load_results() -> Dict:
     """Load all match results"""
+    if USE_GITHUB:
+        return read_json("results.json")
     if RESULTS_FILE.exists():
         with open(RESULTS_FILE, "r", encoding="utf-8") as f:
             return json.load(f)
@@ -55,6 +69,9 @@ def load_results() -> Dict:
 
 def save_results(results: Dict) -> None:
     """Save all match results"""
+    if USE_GITHUB:
+        write_json("results.json", results)
+        return
     with open(RESULTS_FILE, "w", encoding="utf-8") as f:
         json.dump(results, f, ensure_ascii=False, indent=2)
 
