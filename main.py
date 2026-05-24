@@ -83,7 +83,7 @@ def select_user():
 
 def tab_results():
     """Tab to enter match results (goals)"""
-    st.header("⚽ Ingreso de Goles")
+    st.header("⚽ Fase de grupos")
 
     user = st.session_state.current_user
     if not user:
