@@ -16,8 +16,8 @@ def tab_predictions():
         return
 
     # Block predictions once the World Cup starts
-    WORLD_CUP_START = datetime(2026, 6, 11).date()
-    locked = datetime.now().date() >= WORLD_CUP_START
+    WORLD_CUP_START = datetime(2026, 6, 11, 22, 0, 0)
+    locked = datetime.now() >= WORLD_CUP_START
 
     if locked:
         st.error("🔒 Las predicciones están cerradas. El Mundial ya ha comenzado.")
