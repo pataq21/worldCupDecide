@@ -8,6 +8,7 @@ from ui.groups import tab_group_stage
 from ui.knockout import tab_knockout
 from ui.predictions import tab_predictions
 from ui.ranking import tab_ranking
+from ui.results import tab_results
 
 load_dotenv()
 
@@ -72,11 +73,12 @@ def main():
         st.sidebar.success(f"✅ Sesión: {user}")
 
     # Create tabs
-    tab1, tab2, tab3, tab4, tab5 = st.tabs(
+    tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs(
         [
             "⚽ Fase de grupos",
             "📊 Tabla de posiciones",
             "🏅 Fase eliminatoria",
+            "📋 Predicciones vs resultados",
             "🏆 Clasificación",
             "🔧 Admin",
         ]
@@ -92,9 +94,12 @@ def main():
         tab_knockout()
 
     with tab4:
-        tab_ranking()
+        tab_results()
 
     with tab5:
+        tab_ranking()
+
+    with tab6:
         tab_admin()
 
 
