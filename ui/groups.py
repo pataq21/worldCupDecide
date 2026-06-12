@@ -1,7 +1,7 @@
 import pandas as pd
 import streamlit as st
 
-from core.data import get_user_predictions
+from core.data import get_user_predictions, load_results
 from tournament.groups import GROUP_STAGE_MATCHES, GROUPS, calculate_group_standings
 
 
@@ -60,17 +60,25 @@ def tab_group_stage():
         # Show matches for this group
         with st.expander(f"Ver partidos - Grupo {group_name}"):
             group_matches = [m for m in GROUP_STAGE_MATCHES if m["group"] == group_name]
+            results = load_results()
             matches_data = []
             for match in group_matches:
                 if match["goals1"] is not None and match["goals2"] is not None:
-                    result = f"{match['goals1']} - {match['goals2']}"
+                    prediction = f"{match['goals1']} - {match['goals2']}"
                 else:
-                    result = "Sin jugar"
+                    prediction = "Sin predicción"
+
+                real = results.get(match["id"])
+                if real and isinstance(real, dict):
+                    result_str = f"{real['goals1']} - {real['goals2']}"
+                else:
+                    result_str = "Sin jugar"
 
                 matches_data.append(
                     {
                         "Partido": f"{match['team1']} vs {match['team2']}",
-                        "Resultado": result,
+                        "Previsión": prediction,
+                        "Resultado": result_str,
                     }
                 )
 
