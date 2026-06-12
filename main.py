@@ -2,7 +2,6 @@ import streamlit as st
 from dotenv import load_dotenv
 
 from core.data import get_users, register_user
-from core.storage import USE_GITHUB
 from ui.admin import tab_admin
 from ui.groups import tab_group_stage
 from ui.knockout import tab_knockout
@@ -23,7 +22,7 @@ st.set_page_config(
 st.title("⚽ Porra Mundial 2026")
 
 # Debug: show storage mode
-st.sidebar.caption(f"💾 Almacenamiento: {'GitHub' if USE_GITHUB else 'Local'}")
+# st.sidebar.caption(f"💾 Almacenamiento: {'GitHub' if USE_GITHUB else 'Local'}")
 
 # Initialize session
 if "current_user" not in st.session_state:
