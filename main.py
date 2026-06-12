@@ -76,6 +76,7 @@ def main():
     tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs(
         [
             "⚽ Fase de grupos",
+            "📋 Resultados",
             "📊 Tabla de posiciones",
             "🏅 Fase eliminatoria",
             "📋 Predicciones vs resultados",
@@ -88,13 +89,13 @@ def main():
         tab_predictions()
 
     with tab2:
-        tab_group_stage()
+        tab_results()
 
     with tab3:
-        tab_knockout()
+        tab_group_stage()
 
     with tab4:
-        tab_results()
+        tab_knockout()
 
     with tab5:
         tab_ranking()
