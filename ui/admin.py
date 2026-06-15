@@ -13,7 +13,10 @@ def tab_admin():
     from dotenv import load_dotenv
 
     load_dotenv()
-    ADMIN_PASSWORD = st.secrets.get("ADMIN_PASSWORD", os.getenv("ADMIN_PASSWORD"))
+    try:
+        ADMIN_PASSWORD = st.secrets["ADMIN_PASSWORD"]
+    except (FileNotFoundError, KeyError):
+        ADMIN_PASSWORD = os.getenv("ADMIN_PASSWORD")
 
     st.header("🔧 Administración de Resultados")
 
@@ -33,41 +36,8 @@ def tab_admin():
     # --- Admin authenticated ---
     today = datetime.now().date()
 
-    # API fetch button
-    st.subheader("🔄 Actualizar desde API")
-    col_btn, col_info = st.columns([1, 3])
-    with col_btn:
-        fetch_clicked = st.button("Obtener resultados de API")
-    with col_info:
-        results_data = load_results()
-        last_fetch = results_data.get("_meta", {}).get("last_fetch", "Nunca")
-        st.caption(f"Última actualización: {last_fetch}")
-
-    if fetch_clicked:
-        try:
-            from api.football_data import fetch_results_from_api
-
-            fetched = fetch_results_from_api()
-            if fetched:
-                current_results = load_results()
-                meta = current_results.pop("_meta", {})
-                current_results.update(fetched)
-                meta["last_fetch"] = datetime.now().strftime("%Y-%m-%d %H:%M")
-                current_results["_meta"] = meta
-                save_results(current_results)
-                st.success(f"✅ {len(fetched)} resultado(s) actualizados desde la API")
-                st.rerun()
-            else:
-                st.info("No se encontraron resultados nuevos")
-        except ValueError as e:
-            st.warning(str(e))
-        except Exception as e:
-            st.error(f"Error al consultar la API: {e}")
-
-    st.divider()
-
     # Manual result entry
-    st.subheader("✏️ Introducir resultados manualmente")
+    st.subheader("✏️ Introducir resultados")
 
     # Filter matches already played (date <= today)
     past_matches = [m for m in GROUP_STAGE_MATCHES]
@@ -99,7 +69,6 @@ def tab_admin():
                 )
 
                 status = "✅" if existing and isinstance(existing, dict) else "⬜"
-
                 date_str = datetime.strptime(match["date"], "%Y-%m-%d").strftime(
                     "%d %b"
                 )
@@ -173,3 +142,4 @@ def _save_all_results():
     results["_meta"] = meta
     save_results(results)
     st.success(f"✅ {count} resultado(s) guardados correctamente")
+    st.rerun()
