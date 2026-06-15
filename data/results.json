@@ -31,13 +31,17 @@
     "goals1": 2,
     "goals2": 0
   },
-  "F_0_1": {
-    "goals1": 2,
-    "goals2": 2
+  "E_0_1": {
+    "goals1": 7,
+    "goals2": 1
   },
   "E_2_3": {
     "goals1": 1,
     "goals2": 0
+  },
+  "F_0_1": {
+    "goals1": 2,
+    "goals2": 2
   },
   "F_2_3": {
     "goals1": 5,
