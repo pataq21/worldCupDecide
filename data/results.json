@@ -47,9 +47,21 @@
     "goals1": 5,
     "goals2": 1
   },
+  "G_0_1": {
+    "goals1": 1,
+    "goals2": 1
+  },
+  "G_2_3": {
+    "goals1": 2,
+    "goals2": 2
+  },
   "H_0_3": {
     "goals1": 0,
     "goals2": 0
+  },
+  "H_1_2": {
+    "goals1": 1,
+    "goals2": 1
   },
   "_meta": {
     "last_fetch": "2026-06-15 06:26"
