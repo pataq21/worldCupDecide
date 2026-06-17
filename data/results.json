@@ -63,6 +63,22 @@
     "goals1": 1,
     "goals2": 1
   },
+  "I_0_1": {
+    "goals1": 3,
+    "goals2": 1
+  },
+  "I_2_3": {
+    "goals1": 1,
+    "goals2": 4
+  },
+  "J_0_1": {
+    "goals1": 3,
+    "goals2": 0
+  },
+  "J_2_3": {
+    "goals1": 3,
+    "goals2": 1
+  },
   "_meta": {
     "last_fetch": "2026-06-15 06:26"
   }
