@@ -12,17 +12,17 @@ def _get_outcome(goals1: int, goals2: int) -> str:
     return "X"
 
 
-def calculate_user_points(user: str) -> int:
-    """
-    Calculate a user's total points.
-    - 3 pts for exact score match
-    - 1 pt for correct outcome (1/X/2) but wrong score
-    """
+def calculate_user_stats(user: str) -> dict:
+    """Return points, exact score count, and correct sign (1/X/2) count for a user."""
     predictions = get_user_predictions(user)
     results = load_results()
     points = 0
+    exact = 0
+    sign = 0
 
     for match_id, result in results.items():
+        if match_id == "_meta":
+            continue
         pred = predictions.get(match_id)
         if not pred or not isinstance(pred, dict):
             continue
@@ -37,10 +37,17 @@ def calculate_user_points(user: str) -> int:
 
         if pred_g1 == real_g1 and pred_g2 == real_g2:
             points += 3
+            exact += 1
+            sign += 1
         elif _get_outcome(pred_g1, pred_g2) == _get_outcome(real_g1, real_g2):
             points += 1
+            sign += 1
 
-    return points
+    return {"points": points, "exact": exact, "sign": sign}
+
+
+def calculate_user_points(user: str) -> int:
+    return calculate_user_stats(user)["points"]
 
 
 def get_ranking() -> List[tuple]:
@@ -48,3 +55,10 @@ def get_ranking() -> List[tuple]:
     users = load_users()
     ranking = [(name, calculate_user_points(name)) for name in users]
     return sorted(ranking, key=lambda x: x[1], reverse=True)
+
+
+def get_ranking_detailed() -> List[tuple]:
+    """Get user ranking with points, exact scores, and correct signs."""
+    users = load_users()
+    rows = [(name, calculate_user_stats(name)) for name in users]
+    return sorted(rows, key=lambda x: x[1]["points"], reverse=True)

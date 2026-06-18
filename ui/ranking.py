@@ -1,32 +1,33 @@
 import pandas as pd
 import streamlit as st
 
-from core.scoring import get_ranking
+from core.scoring import get_ranking_detailed
 
 
 def tab_ranking():
     """Tab to view user ranking"""
     st.header("🏆 Clasificación de Usuarios")
 
-    ranking = get_ranking()
+    ranking = get_ranking_detailed()
 
     if not ranking:
         st.info("Aún no hay usuarios registrados")
         return
 
-    # Create ranking table
     ranking_data = []
-    for position, (name, points) in enumerate(ranking, 1):
+    for position, (name, stats) in enumerate(ranking, 1):
         medal = {1: "🥇", 2: "🥈", 3: "🥉"}.get(position, f"{position}.")
         ranking_data.append(
             {
-                "Posición": medal,
+                "Pos.": medal,
                 "Usuario": name,
-                "Puntos": points,
+                "Pts": stats["points"],
+                "Exactos": stats["exact"],
+                "Signo": stats["sign"],
             }
         )
 
     df_ranking = pd.DataFrame(ranking_data)
-    st.dataframe(df_ranking, width="stretch", hide_index=True)
+    st.dataframe(df_ranking, hide_index=True, use_container_width=True)
 
-    st.caption("Puntuación: 3 pts resultado exacto • 1 pt acertar ganador/empate")
+    st.caption("Puntuación: 3 pts resultado exacto • 1 pt acertar signo (1/X/2) • Signo incluye exactos")
