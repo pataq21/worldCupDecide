@@ -40,7 +40,10 @@ def generate_matches():
                         "team2": teams[j],
                         "date": schedule.get("date", ""),
                         "venue": schedule.get("venue", ""),
+                        "hora_local": schedule.get("hora_local", ""),
                         "hora_espana": schedule.get("hora_espana", ""),
+                        "fecha_espana": schedule.get("fecha_espana", ""),
+                        "match_day": schedule.get("match_day", 0),
                         "goals1": None,
                         "goals2": None,
                     }

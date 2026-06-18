@@ -1,362 +1,578 @@
 {
     "A_0_3": {
         "date": "2026-06-11",
-        "hora_espana": "21:00",
-        "venue": "Estadio Azteca, Ciudad de México"
+        "hora_espana": "21:00 CEST",
+        "venue": "Estadio Azteca, Ciudad de México",
+        "hora_local": "13:00 CST",
+        "fecha_espana": "2026-06-11",
+        "match_day": 1
     },
     "A_1_2": {
         "date": "2026-06-11",
-        "hora_espana": "04:00 (+1)",
-        "venue": "Estadio Akron, Zapopan"
+        "hora_espana": "04:00 CEST",
+        "venue": "Estadio Akron, Zapopan",
+        "hora_local": "20:00 CST",
+        "fecha_espana": "2026-06-12",
+        "match_day": 1
     },
     "A_2_3": {
         "date": "2026-06-18",
-        "hora_espana": "18:00",
-        "venue": "Mercedes-Benz Stadium, Atlanta"
+        "hora_espana": "18:00 CEST",
+        "venue": "Mercedes-Benz Stadium, Atlanta",
+        "hora_local": "12:00 EDT",
+        "fecha_espana": "2026-06-18",
+        "match_day": 8
     },
     "A_0_1": {
         "date": "2026-06-18",
-        "hora_espana": "03:00 (+1)",
-        "venue": "Estadio Akron, Zapopan"
+        "hora_espana": "03:00 CEST",
+        "venue": "Estadio Akron, Zapopan",
+        "hora_local": "19:00 CST",
+        "fecha_espana": "2026-06-19",
+        "match_day": 8
     },
     "A_0_2": {
         "date": "2026-06-24",
-        "hora_espana": "03:00 (+1)",
-        "venue": "Estadio Azteca, Ciudad de México"
+        "hora_espana": "03:00 CEST",
+        "venue": "Estadio Azteca, Ciudad de México",
+        "hora_local": "19:00 CST",
+        "fecha_espana": "2026-06-25",
+        "match_day": 14
     },
     "A_1_3": {
         "date": "2026-06-24",
-        "hora_espana": "03:00 (+1)",
-        "venue": "Estadio BBVA, Monterrey"
+        "hora_espana": "03:00 CEST",
+        "venue": "Estadio BBVA, Monterrey",
+        "hora_local": "19:00 CST",
+        "fecha_espana": "2026-06-25",
+        "match_day": 14
     },
     "B_0_3": {
         "date": "2026-06-12",
-        "hora_espana": "21:00",
-        "venue": "BMO Field, Toronto"
+        "hora_espana": "21:00 CEST",
+        "venue": "BMO Field, Toronto",
+        "hora_local": "15:00 EDT",
+        "fecha_espana": "2026-06-12",
+        "match_day": 2
     },
     "B_1_2": {
         "date": "2026-06-13",
-        "hora_espana": "21:00",
-        "venue": "Levi's Stadium, Santa Clara"
+        "hora_espana": "21:00 CEST",
+        "venue": "Levi's Stadium, Santa Clara",
+        "hora_local": "12:00 PDT",
+        "fecha_espana": "2026-06-13",
+        "match_day": 3
     },
     "B_2_3": {
         "date": "2026-06-18",
-        "hora_espana": "21:00",
-        "venue": "SoFi Stadium, Inglewood"
+        "hora_espana": "21:00 CEST",
+        "venue": "SoFi Stadium, Inglewood",
+        "hora_local": "12:00 PDT",
+        "fecha_espana": "2026-06-18",
+        "match_day": 8
     },
     "B_0_1": {
         "date": "2026-06-18",
-        "hora_espana": "00:00 (+1)",
-        "venue": "BC Place, Vancouver"
+        "hora_espana": "00:00 CEST",
+        "venue": "BC Place, Vancouver",
+        "hora_local": "15:00 PDT",
+        "fecha_espana": "2026-06-19",
+        "match_day": 8
     },
     "B_0_2": {
         "date": "2026-06-24",
-        "hora_espana": "21:00",
-        "venue": "BC Place, Vancouver"
+        "hora_espana": "21:00 CEST",
+        "venue": "BC Place, Vancouver",
+        "hora_local": "12:00 PDT",
+        "fecha_espana": "2026-06-24",
+        "match_day": 14
     },
     "B_1_3": {
         "date": "2026-06-24",
-        "hora_espana": "21:00",
-        "venue": "Lumen Field, Seattle"
+        "hora_espana": "21:00 CEST",
+        "venue": "Lumen Field, Seattle",
+        "hora_local": "12:00 PDT",
+        "fecha_espana": "2026-06-24",
+        "match_day": 14
     },
     "C_0_3": {
         "date": "2026-06-13",
-        "hora_espana": "00:00 (+1)",
-        "venue": "MetLife Stadium, East Rutherford"
+        "hora_espana": "00:00 CEST",
+        "venue": "MetLife Stadium, East Rutherford",
+        "hora_local": "18:00 EDT",
+        "fecha_espana": "2026-06-14",
+        "match_day": 3
     },
     "C_1_2": {
         "date": "2026-06-13",
-        "hora_espana": "03:00 (+1)",
-        "venue": "Gillette Stadium, Foxborough"
+        "hora_espana": "03:00 CEST",
+        "venue": "Gillette Stadium, Foxborough",
+        "hora_local": "21:00 EDT",
+        "fecha_espana": "2026-06-14",
+        "match_day": 3
     },
     "C_2_3": {
         "date": "2026-06-19",
-        "hora_espana": "00:00 (+1)",
-        "venue": "Gillette Stadium, Foxborough"
+        "hora_espana": "00:00 CEST",
+        "venue": "Gillette Stadium, Foxborough",
+        "hora_local": "18:00 EDT",
+        "fecha_espana": "2026-06-20",
+        "match_day": 9
     },
     "C_0_1": {
         "date": "2026-06-19",
-        "hora_espana": "02:30 (+1)",
-        "venue": "Lincoln Financial Field, Philadelphia"
+        "hora_espana": "02:30 CEST",
+        "venue": "Lincoln Financial Field, Philadelphia",
+        "hora_local": "20:30 EDT",
+        "fecha_espana": "2026-06-20",
+        "match_day": 9
     },
     "C_0_2": {
         "date": "2026-06-24",
-        "hora_espana": "00:00 (+1)",
-        "venue": "Hard Rock Stadium, Miami Gardens"
+        "hora_espana": "00:00 CEST",
+        "venue": "Hard Rock Stadium, Miami Gardens",
+        "hora_local": "18:00 EDT",
+        "fecha_espana": "2026-06-25",
+        "match_day": 14
     },
     "C_1_3": {
         "date": "2026-06-24",
-        "hora_espana": "00:00 (+1)",
-        "venue": "Mercedes-Benz Stadium, Atlanta"
+        "hora_espana": "00:00 CEST",
+        "venue": "Mercedes-Benz Stadium, Atlanta",
+        "hora_local": "18:00 EDT",
+        "fecha_espana": "2026-06-25",
+        "match_day": 14
     },
     "D_0_3": {
         "date": "2026-06-12",
-        "hora_espana": "03:00 (+1)",
-        "venue": "SoFi Stadium, Inglewood"
+        "hora_espana": "03:00 CEST",
+        "venue": "SoFi Stadium, Inglewood",
+        "hora_local": "18:00 PDT",
+        "fecha_espana": "2026-06-13",
+        "match_day": 2
     },
     "D_1_2": {
         "date": "2026-06-13",
-        "hora_espana": "06:00 (+1)",
-        "venue": "BC Place, Vancouver"
+        "hora_espana": "06:00 CEST",
+        "venue": "BC Place, Vancouver",
+        "hora_local": "21:00 PDT",
+        "fecha_espana": "2026-06-14",
+        "match_day": 3
     },
     "D_0_1": {
         "date": "2026-06-19",
-        "hora_espana": "21:00",
-        "venue": "Lumen Field, Seattle"
+        "hora_espana": "21:00 CEST",
+        "venue": "Lumen Field, Seattle",
+        "hora_local": "12:00 PDT",
+        "fecha_espana": "2026-06-19",
+        "match_day": 9
     },
     "D_2_3": {
         "date": "2026-06-19",
-        "hora_espana": "05:00 (+1)",
-        "venue": "Levi's Stadium, Santa Clara"
+        "hora_espana": "05:00 CEST",
+        "venue": "Levi's Stadium, Santa Clara",
+        "hora_local": "20:00 PDT",
+        "fecha_espana": "2026-06-20",
+        "match_day": 9
     },
     "D_0_2": {
         "date": "2026-06-25",
-        "hora_espana": "04:00 (+1)",
-        "venue": "SoFi Stadium, Inglewood"
+        "hora_espana": "04:00 CEST",
+        "venue": "SoFi Stadium, Inglewood",
+        "hora_local": "19:00 PDT",
+        "fecha_espana": "2026-06-26",
+        "match_day": 15
     },
     "D_1_3": {
         "date": "2026-06-25",
-        "hora_espana": "04:00 (+1)",
-        "venue": "Levi's Stadium, Santa Clara"
+        "hora_espana": "04:00 CEST",
+        "venue": "Levi's Stadium, Santa Clara",
+        "hora_local": "19:00 PDT",
+        "fecha_espana": "2026-06-26",
+        "match_day": 15
     },
     "E_0_1": {
         "date": "2026-06-14",
-        "hora_espana": "19:00",
-        "venue": "NRG Stadium, Houston"
+        "hora_espana": "19:00 CEST",
+        "venue": "NRG Stadium, Houston",
+        "hora_local": "12:00 CDT",
+        "fecha_espana": "2026-06-14",
+        "match_day": 4
     },
     "E_2_3": {
         "date": "2026-06-14",
-        "hora_espana": "01:00 (+1)",
-        "venue": "Lincoln Financial Field, Philadelphia"
+        "hora_espana": "01:00 CEST",
+        "venue": "Lincoln Financial Field, Philadelphia",
+        "hora_local": "19:00 EDT",
+        "fecha_espana": "2026-06-15",
+        "match_day": 4
     },
     "E_0_2": {
         "date": "2026-06-20",
-        "hora_espana": "22:00",
-        "venue": "BMO Field, Toronto"
+        "hora_espana": "22:00 CEST",
+        "venue": "BMO Field, Toronto",
+        "hora_local": "16:00 EDT",
+        "fecha_espana": "2026-06-20",
+        "match_day": 10
     },
     "E_1_3": {
         "date": "2026-06-20",
-        "hora_espana": "02:00 (+1)",
-        "venue": "Arrowhead Stadium, Kansas City"
+        "hora_espana": "02:00 CEST",
+        "venue": "Arrowhead Stadium, Kansas City",
+        "hora_local": "19:00 CDT",
+        "fecha_espana": "2026-06-21",
+        "match_day": 10
     },
     "E_1_2": {
         "date": "2026-06-25",
-        "hora_espana": "22:00",
-        "venue": "Lincoln Financial Field, Philadelphia"
+        "hora_espana": "22:00 CEST",
+        "venue": "Lincoln Financial Field, Philadelphia",
+        "hora_local": "16:00 EDT",
+        "fecha_espana": "2026-06-25",
+        "match_day": 15
     },
     "E_0_3": {
         "date": "2026-06-25",
-        "hora_espana": "22:00",
-        "venue": "MetLife Stadium, East Rutherford"
+        "hora_espana": "22:00 CEST",
+        "venue": "MetLife Stadium, East Rutherford",
+        "hora_local": "16:00 EDT",
+        "fecha_espana": "2026-06-25",
+        "match_day": 15
     },
     "F_0_1": {
         "date": "2026-06-14",
-        "hora_espana": "22:00",
-        "venue": "AT&T Stadium, Arlington"
+        "hora_espana": "22:00 CEST",
+        "venue": "AT&T Stadium, Arlington",
+        "hora_local": "15:00 CDT",
+        "fecha_espana": "2026-06-14",
+        "match_day": 4
     },
     "F_2_3": {
         "date": "2026-06-14",
-        "hora_espana": "04:00 (+1)",
-        "venue": "Estadio BBVA, Monterrey"
+        "hora_espana": "04:00 CEST",
+        "venue": "Estadio BBVA, Monterrey",
+        "hora_local": "20:00 CST",
+        "fecha_espana": "2026-06-15",
+        "match_day": 4
     },
     "F_0_2": {
         "date": "2026-06-20",
-        "hora_espana": "19:00",
-        "venue": "NRG Stadium, Houston"
+        "hora_espana": "19:00 CEST",
+        "venue": "NRG Stadium, Houston",
+        "hora_local": "12:00 CDT",
+        "fecha_espana": "2026-06-20",
+        "match_day": 10
     },
     "F_1_3": {
         "date": "2026-06-20",
-        "hora_espana": "06:00 (+1)",
-        "venue": "Estadio BBVA, Monterrey"
+        "hora_espana": "06:00 CEST",
+        "venue": "Estadio BBVA, Monterrey",
+        "hora_local": "22:00 CST",
+        "fecha_espana": "2026-06-21",
+        "match_day": 10
     },
     "F_1_2": {
         "date": "2026-06-25",
-        "hora_espana": "01:00 (+1)",
-        "venue": "AT&T Stadium, Arlington"
+        "hora_espana": "01:00 CEST",
+        "venue": "AT&T Stadium, Arlington",
+        "hora_local": "18:00 CDT",
+        "fecha_espana": "2026-06-26",
+        "match_day": 15
     },
     "F_0_3": {
         "date": "2026-06-25",
-        "hora_espana": "01:00 (+1)",
-        "venue": "Arrowhead Stadium, Kansas City"
+        "hora_espana": "01:00 CEST",
+        "venue": "Arrowhead Stadium, Kansas City",
+        "hora_local": "18:00 CDT",
+        "fecha_espana": "2026-06-26",
+        "match_day": 15
     },
     "G_0_1": {
         "date": "2026-06-15",
-        "hora_espana": "21:00",
-        "venue": "Lumen Field, Seattle"
+        "hora_espana": "21:00 CEST",
+        "venue": "Lumen Field, Seattle",
+        "hora_local": "12:00 PDT",
+        "fecha_espana": "2026-06-15",
+        "match_day": 5
     },
     "G_2_3": {
         "date": "2026-06-15",
-        "hora_espana": "03:00 (+1)",
-        "venue": "SoFi Stadium, Inglewood"
+        "hora_espana": "03:00 CEST",
+        "venue": "SoFi Stadium, Inglewood",
+        "hora_local": "18:00 PDT",
+        "fecha_espana": "2026-06-16",
+        "match_day": 5
     },
     "G_0_2": {
         "date": "2026-06-21",
-        "hora_espana": "21:00",
-        "venue": "SoFi Stadium, Inglewood"
+        "hora_espana": "21:00 CEST",
+        "venue": "SoFi Stadium, Inglewood",
+        "hora_local": "12:00 PDT",
+        "fecha_espana": "2026-06-21",
+        "match_day": 11
     },
     "G_1_3": {
         "date": "2026-06-21",
-        "hora_espana": "03:00 (+1)",
-        "venue": "BC Place, Vancouver"
+        "hora_espana": "03:00 CEST",
+        "venue": "BC Place, Vancouver",
+        "hora_local": "18:00 PDT",
+        "fecha_espana": "2026-06-22",
+        "match_day": 11
     },
     "G_1_2": {
         "date": "2026-06-26",
-        "hora_espana": "05:00 (+1)",
-        "venue": "Lumen Field, Seattle"
+        "hora_espana": "05:00 CEST",
+        "venue": "Lumen Field, Seattle",
+        "hora_local": "20:00 PDT",
+        "fecha_espana": "2026-06-27",
+        "match_day": 16
     },
     "G_0_3": {
         "date": "2026-06-26",
-        "hora_espana": "05:00 (+1)",
-        "venue": "BC Place, Vancouver"
+        "hora_espana": "05:00 CEST",
+        "venue": "BC Place, Vancouver",
+        "hora_local": "20:00 PDT",
+        "fecha_espana": "2026-06-27",
+        "match_day": 16
     },
     "H_0_3": {
         "date": "2026-06-15",
-        "hora_espana": "18:00",
-        "venue": "Mercedes-Benz Stadium, Atlanta"
+        "hora_espana": "18:00 CEST",
+        "venue": "Mercedes-Benz Stadium, Atlanta",
+        "hora_local": "12:00 EDT",
+        "fecha_espana": "2026-06-15",
+        "match_day": 5
     },
     "H_1_2": {
         "date": "2026-06-15",
-        "hora_espana": "00:00 (+1)",
-        "venue": "Hard Rock Stadium, Miami Gardens"
+        "hora_espana": "00:00 CEST",
+        "venue": "Hard Rock Stadium, Miami Gardens",
+        "hora_local": "18:00 EDT",
+        "fecha_espana": "2026-06-16",
+        "match_day": 5
     },
     "H_0_2": {
         "date": "2026-06-21",
-        "hora_espana": "18:00",
-        "venue": "Mercedes-Benz Stadium, Atlanta"
+        "hora_espana": "18:00 CEST",
+        "venue": "Mercedes-Benz Stadium, Atlanta",
+        "hora_local": "12:00 EDT",
+        "fecha_espana": "2026-06-21",
+        "match_day": 11
     },
     "H_1_3": {
         "date": "2026-06-21",
-        "hora_espana": "00:00 (+1)",
-        "venue": "Hard Rock Stadium, Miami Gardens"
+        "hora_espana": "00:00 CEST",
+        "venue": "Hard Rock Stadium, Miami Gardens",
+        "hora_local": "18:00 EDT",
+        "fecha_espana": "2026-06-22",
+        "match_day": 11
     },
     "H_2_3": {
         "date": "2026-06-26",
-        "hora_espana": "02:00 (+1)",
-        "venue": "NRG Stadium, Houston"
+        "hora_espana": "02:00 CEST",
+        "venue": "NRG Stadium, Houston",
+        "hora_local": "19:00 CDT",
+        "fecha_espana": "2026-06-27",
+        "match_day": 16
     },
     "H_0_1": {
         "date": "2026-06-26",
-        "hora_espana": "02:00 (+1)",
-        "venue": "Estadio Akron, Zapopan"
+        "hora_espana": "02:00 CEST",
+        "venue": "Estadio Akron, Zapopan",
+        "hora_local": "18:00 CST",
+        "fecha_espana": "2026-06-27",
+        "match_day": 16
     },
     "I_0_1": {
         "date": "2026-06-16",
-        "hora_espana": "21:00",
-        "venue": "MetLife Stadium, East Rutherford"
+        "hora_espana": "21:00 CEST",
+        "venue": "MetLife Stadium, East Rutherford",
+        "hora_local": "15:00 EDT",
+        "fecha_espana": "2026-06-16",
+        "match_day": 6
     },
     "I_2_3": {
         "date": "2026-06-16",
-        "hora_espana": "00:00 (+1)",
-        "venue": "Gillette Stadium, Foxborough"
+        "hora_espana": "00:00 CEST",
+        "venue": "Gillette Stadium, Foxborough",
+        "hora_local": "18:00 EDT",
+        "fecha_espana": "2026-06-17",
+        "match_day": 6
     },
     "I_0_2": {
         "date": "2026-06-22",
-        "hora_espana": "23:00",
-        "venue": "Lincoln Financial Field, Philadelphia"
+        "hora_espana": "23:00 CEST",
+        "venue": "Lincoln Financial Field, Philadelphia",
+        "hora_local": "17:00 EDT",
+        "fecha_espana": "2026-06-22",
+        "match_day": 12
     },
     "I_1_3": {
         "date": "2026-06-22",
-        "hora_espana": "02:00 (+1)",
-        "venue": "MetLife Stadium, East Rutherford"
+        "hora_espana": "02:00 CEST",
+        "venue": "MetLife Stadium, East Rutherford",
+        "hora_local": "20:00 EDT",
+        "fecha_espana": "2026-06-23",
+        "match_day": 12
     },
     "I_0_3": {
         "date": "2026-06-26",
-        "hora_espana": "21:00",
-        "venue": "Gillette Stadium, Foxborough"
+        "hora_espana": "21:00 CEST",
+        "venue": "Gillette Stadium, Foxborough",
+        "hora_local": "15:00 EDT",
+        "fecha_espana": "2026-06-26",
+        "match_day": 16
     },
     "I_1_2": {
         "date": "2026-06-26",
-        "hora_espana": "21:00",
-        "venue": "BMO Field, Toronto"
+        "hora_espana": "21:00 CEST",
+        "venue": "BMO Field, Toronto",
+        "hora_local": "15:00 EDT",
+        "fecha_espana": "2026-06-26",
+        "match_day": 16
     },
     "J_0_1": {
         "date": "2026-06-16",
-        "hora_espana": "03:00 (+1)",
-        "venue": "Arrowhead Stadium, Kansas City"
+        "hora_espana": "03:00 CEST",
+        "venue": "Arrowhead Stadium, Kansas City",
+        "hora_local": "20:00 CDT",
+        "fecha_espana": "2026-06-17",
+        "match_day": 6
     },
     "J_2_3": {
         "date": "2026-06-16",
-        "hora_espana": "06:00 (+1)",
-        "venue": "Levi's Stadium, Santa Clara"
+        "hora_espana": "06:00 CEST",
+        "venue": "Levi's Stadium, Santa Clara",
+        "hora_local": "21:00 PDT",
+        "fecha_espana": "2026-06-17",
+        "match_day": 6
     },
     "J_0_2": {
         "date": "2026-06-22",
-        "hora_espana": "19:00",
-        "venue": "AT&T Stadium, Arlington"
+        "hora_espana": "19:00 CEST",
+        "venue": "AT&T Stadium, Arlington",
+        "hora_local": "12:00 CDT",
+        "fecha_espana": "2026-06-22",
+        "match_day": 12
     },
     "J_1_3": {
         "date": "2026-06-22",
-        "hora_espana": "05:00 (+1)",
-        "venue": "Levi's Stadium, Santa Clara"
+        "hora_espana": "05:00 CEST",
+        "venue": "Levi's Stadium, Santa Clara",
+        "hora_local": "20:00 PDT",
+        "fecha_espana": "2026-06-23",
+        "match_day": 12
     },
     "J_1_2": {
         "date": "2026-06-27",
-        "hora_espana": "04:00 (+1)",
-        "venue": "Arrowhead Stadium, Kansas City"
+        "hora_espana": "04:00 CEST",
+        "venue": "Arrowhead Stadium, Kansas City",
+        "hora_local": "21:00 CDT",
+        "fecha_espana": "2026-06-28",
+        "match_day": 17
     },
     "J_0_3": {
         "date": "2026-06-27",
-        "hora_espana": "04:00 (+1)",
-        "venue": "AT&T Stadium, Arlington"
+        "hora_espana": "04:00 CEST",
+        "venue": "AT&T Stadium, Arlington",
+        "hora_local": "21:00 CDT",
+        "fecha_espana": "2026-06-28",
+        "match_day": 17
     },
     "K_0_3": {
         "date": "2026-06-17",
-        "hora_espana": "19:00",
-        "venue": "NRG Stadium, Houston"
+        "hora_espana": "19:00 CEST",
+        "venue": "NRG Stadium, Houston",
+        "hora_local": "12:00 CDT",
+        "fecha_espana": "2026-06-17",
+        "match_day": 7
     },
     "K_1_2": {
         "date": "2026-06-17",
-        "hora_espana": "04:00 (+1)",
-        "venue": "Estadio Azteca, Ciudad de México"
+        "hora_espana": "04:00 CEST",
+        "venue": "Estadio Azteca, Ciudad de México",
+        "hora_local": "20:00 CST",
+        "fecha_espana": "2026-06-18",
+        "match_day": 7
     },
     "K_0_1": {
         "date": "2026-06-23",
-        "hora_espana": "19:00",
-        "venue": "NRG Stadium, Houston"
+        "hora_espana": "19:00 CEST",
+        "venue": "NRG Stadium, Houston",
+        "hora_local": "12:00 CDT",
+        "fecha_espana": "2026-06-23",
+        "match_day": 13
     },
     "K_2_3": {
         "date": "2026-06-23",
-        "hora_espana": "04:00 (+1)",
-        "venue": "Estadio Akron, Zapopan"
+        "hora_espana": "04:00 CEST",
+        "venue": "Estadio Akron, Zapopan",
+        "hora_local": "20:00 CST",
+        "fecha_espana": "2026-06-24",
+        "match_day": 13
     },
     "K_0_2": {
         "date": "2026-06-27",
-        "hora_espana": "01:30 (+1)",
-        "venue": "Hard Rock Stadium, Miami Gardens"
+        "hora_espana": "01:30 CEST",
+        "venue": "Hard Rock Stadium, Miami Gardens",
+        "hora_local": "19:30 EDT",
+        "fecha_espana": "2026-06-28",
+        "match_day": 17
     },
     "K_1_3": {
         "date": "2026-06-27",
-        "hora_espana": "01:30 (+1)",
-        "venue": "Mercedes-Benz Stadium, Atlanta"
+        "hora_espana": "01:30 CEST",
+        "venue": "Mercedes-Benz Stadium, Atlanta",
+        "hora_local": "19:30 EDT",
+        "fecha_espana": "2026-06-28",
+        "match_day": 17
     },
     "L_0_1": {
         "date": "2026-06-17",
-        "hora_espana": "22:00",
-        "venue": "AT&T Stadium, Arlington"
+        "hora_espana": "22:00 CEST",
+        "venue": "AT&T Stadium, Arlington",
+        "hora_local": "15:00 CDT",
+        "fecha_espana": "2026-06-17",
+        "match_day": 7
     },
     "L_2_3": {
         "date": "2026-06-17",
-        "hora_espana": "01:00 (+1)",
-        "venue": "BMO Field, Toronto"
+        "hora_espana": "01:00 CEST",
+        "venue": "BMO Field, Toronto",
+        "hora_local": "19:00 EDT",
+        "fecha_espana": "2026-06-18",
+        "match_day": 7
     },
     "L_0_3": {
         "date": "2026-06-23",
-        "hora_espana": "22:00",
-        "venue": "Gillette Stadium, Foxborough"
+        "hora_espana": "22:00 CEST",
+        "venue": "Gillette Stadium, Foxborough",
+        "hora_local": "16:00 EDT",
+        "fecha_espana": "2026-06-23",
+        "match_day": 13
     },
     "L_1_2": {
         "date": "2026-06-23",
-        "hora_espana": "01:00 (+1)",
-        "venue": "BMO Field, Toronto"
+        "hora_espana": "01:00 CEST",
+        "venue": "BMO Field, Toronto",
+        "hora_local": "19:00 EDT",
+        "fecha_espana": "2026-06-24",
+        "match_day": 13
     },
     "L_0_2": {
         "date": "2026-06-27",
-        "hora_espana": "23:00",
-        "venue": "MetLife Stadium, East Rutherford"
+        "hora_espana": "23:00 CEST",
+        "venue": "MetLife Stadium, East Rutherford",
+        "hora_local": "17:00 EDT",
+        "fecha_espana": "2026-06-27",
+        "match_day": 17
     },
     "L_1_3": {
         "date": "2026-06-27",
-        "hora_espana": "23:00",
-        "venue": "Lincoln Financial Field, Philadelphia"
+        "hora_espana": "23:00 CEST",
+        "venue": "Lincoln Financial Field, Philadelphia",
+        "hora_local": "17:00 EDT",
+        "fecha_espana": "2026-06-27",
+        "match_day": 17
     }
 }

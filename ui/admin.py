@@ -69,12 +69,10 @@ def tab_admin():
                 )
 
                 status = "✅" if existing and isinstance(existing, dict) else "⬜"
-                date_str = datetime.strptime(match["date"], "%Y-%m-%d").strftime(
-                    "%d %b"
-                )
-                st.caption(
-                    f"{status} 📅 {date_str}  •  🇪🇸 {match.get('hora_espana', '')}h"
-                )
+                fecha_espana = match.get("fecha_espana", "") or match["date"]
+                date_str = datetime.strptime(fecha_espana, "%Y-%m-%d").strftime("%d %b")
+                hora_espana = match.get("hora_espana", "")
+                st.caption(f"{status} 📅 {date_str} {hora_espana}")
 
                 col1, col2, col3, col4, col5 = st.columns(
                     [4, 0.4, 0.3, 0.4, 4], vertical_alignment="center"

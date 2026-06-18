@@ -34,7 +34,7 @@ _PT_COLORS = {
     1: "background-color: rgba(220, 170, 0, 0.35)",
 }
 
-_FIXED_COLS = ["_sort_date", "Gr.", "Fecha", "Partido", "Resultado"]
+_FIXED_COLS = ["_sort_datetime", "J.", "Gr.", "Fecha", "Partido", "Resultado"]
 
 
 def tab_results():
@@ -58,18 +58,21 @@ def tab_results():
         match_id = match["id"]
         result = all_results.get(match_id)
 
-        sort_date = "9999-99-99"
+        sort_datetime = "9999-99-99 99:99"
         date_str = ""
-        if match["date"]:
-            dt = datetime.strptime(match["date"], "%Y-%m-%d")
+        fecha_espana = match.get("fecha_espana", "") or match.get("date", "")
+        hora_espana = match.get("hora_espana", "")
+        if fecha_espana:
+            dt = datetime.strptime(fecha_espana, "%Y-%m-%d")
             date_str = dt.strftime("%d %b")
-            sort_date = match["date"]
-        hora = match.get("hora_espana", "")
+            hora_sort = hora_espana.split()[0] if hora_espana else "99:99"
+            sort_datetime = f"{fecha_espana} {hora_sort}"
 
         row = {
-            "_sort_date": sort_date,
+            "_sort_datetime": sort_datetime,
+            "J.": match.get("match_day") or "—",
             "Gr.": match["group"],
-            "Fecha": f"{date_str} {hora}h".strip() if date_str else "—",
+            "Fecha": f"{date_str} {hora_espana}".strip() if date_str else "—",
             "Partido": f"{match['team1']} vs {match['team2']}",
             "Resultado": f"{result['goals1']}-{result['goals2']}" if result else "—",
         }
@@ -92,12 +95,12 @@ def tab_results():
     style_df = pd.DataFrame(style_rows)
 
     if sort_order == "Fecha":
-        sorted_idx = df.sort_values("_sort_date").index
+        sorted_idx = df.sort_values("_sort_datetime").index
         df = df.loc[sorted_idx].reset_index(drop=True)
         style_df = style_df.loc[sorted_idx].reset_index(drop=True)
 
-    df = df.drop(columns=["_sort_date"])
-    style_df = style_df.drop(columns=["_sort_date"])
+    df = df.drop(columns=["_sort_datetime"])
+    style_df = style_df.drop(columns=["_sort_datetime"])
 
     st.dataframe(
         df.style.apply(lambda _: style_df, axis=None),
