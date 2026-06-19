@@ -48,14 +48,11 @@ def tab_predictions():
                 str(pred["goals2"]) if pred and isinstance(pred, dict) else ""
             )
 
-            # Show date, time in Spain and venue
-            date_str = ""
-            if match["date"]:
-                dt = datetime.strptime(match["date"], "%Y-%m-%d")
-                date_str = dt.strftime("%d %b")
-            hora = match.get("hora_espana", "")
+            fecha_espana = match.get("fecha_espana", "") or match["date"]
+            date_str = datetime.strptime(fecha_espana, "%Y-%m-%d").strftime("%d %b") if fecha_espana else ""
+            hora_espana = match.get("hora_espana", "")
             venue = match["venue"]
-            st.caption(f"📅 {date_str}  •  🇪🇸 {hora}h  •  🏟️ {venue}")
+            st.caption(f"📅 {date_str} {hora_espana}  •  🏟️ {venue}")
 
             col1, col2, col3, col4, col5 = st.columns(
                 [4, 0.4, 0.3, 0.4, 4], vertical_alignment="center"
