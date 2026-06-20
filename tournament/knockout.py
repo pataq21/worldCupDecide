@@ -57,6 +57,87 @@ THIRD_PLACE = [(103, "L101", "L102")]
 FINAL = [(104, "W101", "W102")]
 
 
+def _head_to_head_stats(
+    tied_teams: List[Dict], group_matches: List[Dict], results: Dict
+) -> Dict[str, Dict]:
+    """Compute head-to-head points, GD and GF among a subset of tied teams."""
+    tied_names = {t["team"] for t in tied_teams}
+    h2h: Dict[str, Dict] = {
+        t["team"]: {"pts": 0, "gd": 0, "gf": 0} for t in tied_teams
+    }
+    for match in group_matches:
+        t1, t2 = match["team1"], match["team2"]
+        if t1 not in tied_names or t2 not in tied_names:
+            continue
+        result = results.get(match["id"])
+        if not result or not isinstance(result, dict):
+            continue
+        g1, g2 = result.get("goals1"), result.get("goals2")
+        if g1 is None or g2 is None:
+            continue
+        h2h[t1]["gd"] += g1 - g2
+        h2h[t1]["gf"] += g1
+        h2h[t2]["gd"] += g2 - g1
+        h2h[t2]["gf"] += g2
+        if g1 > g2:
+            h2h[t1]["pts"] += 3
+        elif g1 < g2:
+            h2h[t2]["pts"] += 3
+        else:
+            h2h[t1]["pts"] += 1
+            h2h[t2]["pts"] += 1
+    return h2h
+
+
+def _sort_with_tiebreakers(
+    teams: List[Dict], group_matches: List[Dict], results: Dict
+) -> List[Dict]:
+    """
+    Sort teams using FIFA tiebreaking rules:
+    1. Points
+    2. Head-to-head points (among tied teams)
+    3. Head-to-head goal difference
+    4. Head-to-head goals scored
+    5. Overall goal difference
+    6. Overall goals scored
+    Remaining ties are left in arbitrary order (drawing of lots in real life).
+    """
+    # First pass: sort by overall points only
+    by_points = sorted(
+        teams, key=lambda x: x["wins"] * 3 + x["draws"], reverse=True
+    )
+
+    result_order: List[Dict] = []
+    i = 0
+    while i < len(by_points):
+        pts = by_points[i]["wins"] * 3 + by_points[i]["draws"]
+        j = i + 1
+        while j < len(by_points) and by_points[j]["wins"] * 3 + by_points[j]["draws"] == pts:
+            j += 1
+        tied_group = by_points[i:j]
+
+        if len(tied_group) == 1:
+            result_order.extend(tied_group)
+        else:
+            h2h = _head_to_head_stats(tied_group, group_matches, results)
+            result_order.extend(
+                sorted(
+                    tied_group,
+                    key=lambda x: (
+                        h2h[x["team"]]["pts"],
+                        h2h[x["team"]]["gd"],
+                        h2h[x["team"]]["gf"],
+                        x["goals_for"] - x["goals_against"],
+                        x["goals_for"],
+                    ),
+                    reverse=True,
+                )
+            )
+        i = j
+
+    return result_order
+
+
 def calculate_real_group_standings() -> Dict[str, List[Dict]]:
     """
     Calculate group standings based on real results (from results.json).
@@ -109,16 +190,9 @@ def calculate_real_group_standings() -> Dict[str, List[Dict]]:
                 standings[team1]["draws"] += 1
                 standings[team2]["draws"] += 1
 
-        sorted_standings = sorted(
-            standings.values(),
-            key=lambda x: (
-                x["wins"] * 3 + x["draws"],
-                x["goals_for"] - x["goals_against"],
-                x["goals_for"],
-            ),
-            reverse=True,
+        all_standings[group_name] = _sort_with_tiebreakers(
+            list(standings.values()), group_matches, results
         )
-        all_standings[group_name] = sorted_standings
 
     return all_standings
 
