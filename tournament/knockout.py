@@ -226,7 +226,7 @@ def _assign_third_place_teams(qualified_3rd_groups: List[str]) -> Dict[int, str]
 def fill_bracket() -> Dict[int, Dict]:
     """
     Fill the knockout bracket with team names based on real results.
-    Returns {match_number: {"team1": name/None, "team2": name/None, "label1": str, "label2": str}}
+    Returns {match_number: {"team1": name/None, "team2": name/None}}
     """
     qualified = get_qualified_teams()
     qualified_3rd_groups = qualified.get("3rd_qualified_groups", [])
@@ -240,13 +240,9 @@ def fill_bracket() -> Dict[int, Dict]:
     for match_num, src1, src2 in ROUND_OF_32:
         team1 = _resolve_source_v2(src1, qualified, third_assignment, match_num)
         team2 = _resolve_source_v2(src2, qualified, third_assignment, match_num)
-        label1 = _source_label(src1)
-        label2 = _source_label(src2)
         bracket[match_num] = {
             "team1": team1,
             "team2": team2,
-            "label1": label1,
-            "label2": label2,
         }
 
     # Later rounds depend on knockout results (not implemented yet for real results)
@@ -255,8 +251,6 @@ def fill_bracket() -> Dict[int, Dict]:
             bracket[match_num] = {
                 "team1": None,
                 "team2": None,
-                "label1": _source_label(src1),
-                "label2": _source_label(src2),
             }
 
     return bracket
@@ -336,8 +330,6 @@ def resolve_user_knockout_bracket(
         user_bracket[match_num] = {
             "team1": rb["team1"],
             "team2": rb["team2"],
-            "label1": rb["label1"],
-            "label2": rb["label2"],
             "winner": winner,
         }
 
@@ -347,8 +339,6 @@ def resolve_user_knockout_bracket(
         user_bracket[match_num] = {
             "team1": None,
             "team2": None,
-            "label1": _source_label(src1),
-            "label2": _source_label(src2),
             "winner": user_ko_preds.get(f"KO_{match_num}"),
         }
 
@@ -472,7 +462,7 @@ def generate_full_bracket_html(user_bracket: Dict[int, Dict]) -> str:
         text-align: center;
         font-weight: bold;
         font-size: 11px;
-        color: #666;
+        color: #333;
         margin-bottom: 4px;
     }
     .matches {
@@ -505,6 +495,7 @@ def generate_full_bracket_html(user_bracket: Dict[int, Dict]) -> str:
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+        color: #222;
     }
     .team:last-child {
         border-bottom: none;
@@ -585,15 +576,70 @@ def _resolve_source_v2(
     return None
 
 
-def _source_label(src: str) -> str:
-    """Human-readable label for a bracket source."""
-    if src.startswith("W"):
-        return f"Ganador P{src[1:]}"
-    elif src.startswith("L"):
-        return f"Perdedor P{src[1:]}"
-    elif src.startswith("3") and len(src) > 2:
-        return f"3º ({'/'.join(src[1:])})"
-    elif src.startswith("1"):
-        return f"1º Grupo {src[1:]}"
-    elif src.startswith("2"):
-        return f"2º Grupo {src[1:]}"
+def fill_bracket_from_config(knockout_config: Dict) -> Dict[int, Dict]:
+    """
+    Build the real knockout bracket from manual admin configuration.
+
+    Config format:
+      {
+        "match_73": {"team1": "X", "team2": "Y", "winner": "X"},  # R32 pairings + winner
+        "match_89": {"winner": "X"},                               # later rounds: winner only
+        ...
+      }
+
+    R32 teams come from the config pairings. Winners of each round are propagated
+    automatically to fill the teams of the next round (and losers of SF to 3rd place).
+    A winner is only honoured if it is one of the two teams actually in that match.
+
+    Returns {match_number: {"team1", "team2", "winner"}}.
+    """
+    bracket: Dict[int, Dict] = {}
+
+    # Round of 32: teams come directly from config pairings
+    for match_num, src1, src2 in ROUND_OF_32:
+        cfg = knockout_config.get(f"match_{match_num}", {})
+        t1 = cfg.get("team1") or None
+        t2 = cfg.get("team2") or None
+        w = cfg.get("winner")
+        winner = w if w and w in (t1, t2) else None
+        bracket[match_num] = {
+            "team1": t1,
+            "team2": t2,
+            "winner": winner,
+        }
+
+    def _resolve_slot(src: str) -> Optional[str]:
+        """Resolve a 'W##' / 'L##' source to a team using already-built rounds."""
+        if not src or src[0] not in ("W", "L"):
+            return None
+        prev = bracket.get(int(src[1:]), {})
+        prev_winner = prev.get("winner")
+        if not prev_winner:
+            return None
+        if src[0] == "W":
+            return prev_winner
+        # Loser: the team that is not the winner
+        return (
+            prev.get("team2") if prev_winner == prev.get("team1") else prev.get("team1")
+        )
+
+    def _fill_round(round_def):
+        for match_num, src1, src2 in round_def:
+            t1 = _resolve_slot(src1)
+            t2 = _resolve_slot(src2)
+            cfg = knockout_config.get(f"match_{match_num}", {})
+            w = cfg.get("winner")
+            winner = w if w and w in (t1, t2) else None
+            bracket[match_num] = {
+                "team1": t1,
+                "team2": t2,
+                "winner": winner,
+            }
+
+    _fill_round(ROUND_OF_16)
+    _fill_round(QUARTER_FINALS)
+    _fill_round(SEMI_FINALS)
+    _fill_round(THIRD_PLACE)
+    _fill_round(FINAL)
+
+    return bracket

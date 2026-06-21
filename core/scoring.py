@@ -4,7 +4,15 @@ from typing import List
 
 import pandas as pd
 
-from core.data import get_user_predictions, load_predictions, load_results, load_users
+from core.data import (
+    calculate_knockout_points,
+    get_user_predictions,
+    load_knockout_config,
+    load_predictions,
+    load_results,
+    load_users,
+)
+from tournament.knockout import fill_bracket, fill_bracket_from_config
 
 _SCHEDULE_PATH = Path(__file__).parent.parent / "data" / "schedule.json"
 
@@ -19,13 +27,14 @@ def _get_outcome(goals1: int, goals2: int) -> str:
 
 
 def calculate_user_stats(user: str) -> dict:
-    """Return points, exact score count, and correct sign (1/X/2) count for a user."""
+    """Return points (group + knockout), exact score count, and correct sign (1/X/2) count for a user."""
     predictions = get_user_predictions(user)
     results = load_results()
-    points = 0
+    group_points = 0
     exact = 0
     sign = 0
 
+    # Calculate group stage points
     for match_id, result in results.items():
         if match_id == "_meta":
             continue
@@ -42,14 +51,32 @@ def calculate_user_stats(user: str) -> dict:
             continue
 
         if pred_g1 == real_g1 and pred_g2 == real_g2:
-            points += 3
+            group_points += 3
             exact += 1
             sign += 1
         elif _get_outcome(pred_g1, pred_g2) == _get_outcome(real_g1, real_g2):
-            points += 1
+            group_points += 1
             sign += 1
 
-    return {"points": points, "exact": exact, "sign": sign}
+    # Calculate knockout stage points
+    knockout_config = load_knockout_config()
+    if knockout_config:
+        real_bracket = fill_bracket_from_config(knockout_config)
+    else:
+        real_bracket = fill_bracket()
+
+    user_ko_preds = {k: v for k, v in predictions.items() if k.startswith("KO_")}
+    knockout_points = calculate_knockout_points(user_ko_preds, real_bracket)
+
+    total_points = group_points + knockout_points
+
+    return {
+        "points": total_points,
+        "group_points": group_points,
+        "knockout_points": knockout_points,
+        "exact": exact,
+        "sign": sign,
+    }
 
 
 def calculate_user_points(user: str) -> int:
@@ -73,7 +100,9 @@ def get_ranking_detailed() -> List[tuple]:
 def get_points_evolution() -> pd.DataFrame | None:
     """Cumulative points per user per match day. Returns DataFrame indexed 0..N or None."""
     schedule = json.loads(_SCHEDULE_PATH.read_text(encoding="utf-8"))
-    match_to_day = {mid: s["match_day"] for mid, s in schedule.items() if s.get("match_day")}
+    match_to_day = {
+        mid: s["match_day"] for mid, s in schedule.items() if s.get("match_day")
+    }
 
     predictions = load_predictions()
     results = load_results()
@@ -109,7 +138,9 @@ def get_points_evolution() -> pd.DataFrame | None:
                 continue
             day_pts[user][day] = day_pts[user].get(day, 0) + pts
 
-    played_days = sorted({match_to_day[mid] for mid in results if mid != "_meta" and mid in match_to_day})
+    played_days = sorted(
+        {match_to_day[mid] for mid in results if mid != "_meta" and mid in match_to_day}
+    )
     if not played_days:
         return None
 

@@ -21,15 +21,19 @@ def tab_ranking():
             {
                 "Pos.": medal,
                 "Usuario": name,
-                "Pts": stats["points"],
+                "Grupos": stats["group_points"],
+                "Eliminatoria": stats["knockout_points"],
+                "Total": stats["points"],
                 "Exactos": stats["exact"],
                 "Signo": stats["sign"],
             }
         )
 
     df_ranking = pd.DataFrame(ranking_data)
-    st.dataframe(df_ranking, hide_index=True, use_container_width=True)
-    st.caption("Puntuación: 3 pts resultado exacto • 1 pt acertar signo (1/X/2) • Signo incluye exactos")
+    st.dataframe(df_ranking, hide_index=True, width="stretch")
+    st.caption(
+        "Puntuación: Grupos (3 pts exacto • 1 pt signo) • Eliminatoria (2/3/5/7/10/10 pts por R32/R16/QF/SF/3P/Final)"
+    )
 
     st.subheader("Evolución por jornada")
     evolution_df = get_points_evolution()
@@ -41,7 +45,9 @@ def tab_ranking():
             default=all_users[:5] if len(all_users) > 5 else all_users,
         )
         if selected:
-            st.line_chart(evolution_df[selected], x_label="Jornada", y_label="Puntos acumulados")
+            st.line_chart(
+                evolution_df[selected], x_label="Jornada", y_label="Puntos acumulados"
+            )
         else:
             st.info("Selecciona al menos un usuario para ver la gráfica")
     else:
