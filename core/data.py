@@ -232,6 +232,6 @@ def calculate_knockout_points(user_predictions: Dict, real_bracket: Dict) -> int
         user_winner = user_predictions.get(f"KO_{match_num}")
         real_winner = real_bracket.get(match_num, {}).get("winner")
         if user_winner and real_winner and user_winner == real_winner:
-            total_points += 10
+            total_points += 12
 
     return total_points
