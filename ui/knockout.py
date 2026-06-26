@@ -2,8 +2,13 @@ from datetime import datetime
 
 import streamlit as st
 
-from core.data import get_user_predictions, load_predictions, save_predictions
-from tournament.groups import GROUPS
+from core.data import (
+    calculate_knockout_points,
+    get_user_predictions,
+    load_knockout_config,
+    load_predictions,
+    save_predictions,
+)
 from tournament.knockout import (
     FINAL,
     QUARTER_FINALS,
@@ -12,23 +17,22 @@ from tournament.knockout import (
     SEMI_FINALS,
     THIRD_PLACE,
     fill_bracket,
+    fill_bracket_from_config,
     generate_full_bracket_html,
-    is_group_complete,
     resolve_user_knockout_bracket,
 )
 
 
 def tab_knockout():
     """Tab to display knockout bracket and allow user predictions."""
-    st.header("🏅 Fase Eliminatoria")
 
     user = st.session_state.current_user
     if not user:
         st.warning("Selecciona un usuario para ver y predecir la fase eliminatoria")
         return
 
-    # Block predictions once the knockout stage starts (June 28)
-    KNOCKOUT_START = datetime(2026, 6, 28).date()
+    # Block predictions once the knockout stage starts (June 29)
+    KNOCKOUT_START = datetime(2026, 6, 29).date()
     locked = datetime.now().date() >= KNOCKOUT_START
 
     if locked:
@@ -36,34 +40,21 @@ def tab_knockout():
             "🔒 Las predicciones están cerradas. La fase eliminatoria ya ha comenzado."
         )
 
-    # Check how many groups are complete
-    complete_groups = [g for g in GROUPS if is_group_complete(g)]
-    st.caption(
-        f"Grupos completados: {len(complete_groups)}/12 — "
-        f"{''.join(sorted(complete_groups)) if complete_groups else 'Ninguno'}"
-    )
+    # Load knockout configuration
+    knockout_config = load_knockout_config()
 
-    if not complete_groups:
-        st.info(
-            "La fase eliminatoria se rellenará automáticamente cuando se "
-            "introduzcan los resultados de los partidos en la pestaña Admin."
-        )
-        return
+    # Load real bracket (from manual config or auto-calculated)
+    if knockout_config:
+        real_bracket = fill_bracket_from_config(knockout_config)
+    else:
+        real_bracket = fill_bracket()
 
-    # Load real bracket (R32 teams from group stage results)
-    real_bracket = fill_bracket()
-
-    # Load user knockout predictions
+    # Load user knockout predictions from file (for initial display)
     user_predictions = get_user_predictions(user)
     user_ko_preds = {k: v for k, v in user_predictions.items() if k.startswith("KO_")}
 
-    # Resolve user's bracket
+    # Resolve user's bracket with saved predictions (for selectbox display)
     user_bracket = resolve_user_knockout_bracket(user_ko_preds, real_bracket)
-
-    # Show visual bracket
-    st.subheader("🏆 Cuadro del Torneo")
-    bracket_html = generate_full_bracket_html(user_bracket)
-    st.components.v1.html(bracket_html, height=650, scrolling=True)
 
     st.divider()
 
@@ -78,12 +69,17 @@ def tab_knockout():
         if st.button("💾 Guardar predicciones eliminatoria", type="primary"):
             _save_all_ko_predictions(user)
 
-    def _show_match_selector(match_num, user_bracket_data):
-        """Show a selectbox for picking the winner of a match."""
+    def _show_match_selector(
+        match_num, user_bracket_data, real_bracket_data, round_name=""
+    ):
+        """Show a selectbox for picking the winner of a match with correctness indicator."""
         info = user_bracket_data[match_num]
+        real_info = real_bracket_data.get(match_num, {})
+
         t1 = info.get("team1")
         t2 = info.get("team2")
         current_winner = info.get("winner")
+        real_winner = real_info.get("winner")
 
         if not t1 and not t2:
             st.caption(f"P{match_num}: _Equipos pendientes_")
@@ -103,7 +99,8 @@ def tab_knockout():
         label_parts = []
         label_parts.append(t1 if t1 else "?")
         label_parts.append(t2 if t2 else "?")
-        label = f"P{match_num}: {label_parts[0]}  vs  {label_parts[1]}"
+
+        label = f" P{match_num}: {label_parts[0]}  vs  {label_parts[1]}"
 
         st.selectbox(
             label,
@@ -131,10 +128,45 @@ def tab_knockout():
                 half = len(round_matches) // 2
                 for i, (match_num, _, _) in enumerate(round_matches):
                     with col1 if i < half else col2:
-                        _show_match_selector(match_num, user_bracket)
+                        _show_match_selector(
+                            match_num, user_bracket, real_bracket, round_title
+                        )
             else:
                 for match_num, _, _ in round_matches:
-                    _show_match_selector(match_num, user_bracket)
+                    _show_match_selector(
+                        match_num, user_bracket, real_bracket, round_title
+                    )
+
+    st.divider()
+
+    # --- Rebuild bracket with current session_state values (for live updates) ---
+    # Build predictions dict from current session_state selectboxes
+    live_user_ko_preds = {}
+    all_rounds = (
+        ROUND_OF_32 + ROUND_OF_16 + QUARTER_FINALS + SEMI_FINALS + THIRD_PLACE + FINAL
+    )
+    for match_num, _, _ in all_rounds:
+        key = f"ko_select_{user}_{match_num}"
+        selected = st.session_state.get(key)
+        if selected and selected != "—":
+            live_user_ko_preds[f"KO_{match_num}"] = selected
+
+    # Resolve user's bracket with live predictions
+    user_bracket = resolve_user_knockout_bracket(live_user_ko_preds, real_bracket)
+
+    # Show visual bracket
+    st.subheader("🏆 Cuadro del Torneo")
+    bracket_html = generate_full_bracket_html(user_bracket)
+    st.html(bracket_html)
+
+    # Calculate and show points
+    knockout_points = calculate_knockout_points(live_user_ko_preds, real_bracket)
+    max_possible_points = (8 * 2) + (4 * 3) + (2 * 5) + (2 * 7) + 10  # 75 total
+    st.metric(
+        "Puntos Fase Eliminatoria",
+        f"{knockout_points} / {max_possible_points}",
+        delta=None,
+    )
 
 
 def _save_all_ko_predictions(user: str):

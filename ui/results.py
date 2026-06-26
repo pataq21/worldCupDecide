@@ -105,5 +105,5 @@ def tab_results():
     st.dataframe(
         df.style.apply(lambda _: style_df, axis=None),
         hide_index=True,
-        use_container_width=True,
+        width="stretch",
     )
