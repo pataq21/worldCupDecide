@@ -1,1 +1,36 @@
-{}
+{
+  "match_73": {
+    "team1": "Sudáfrica",
+    "team2": "Canadá"
+  },
+  "match_74": {
+    "team1": "Alemania"
+  },
+  "match_75": {
+    "team1": "Países Bajos",
+    "team2": "Marruecos"
+  },
+  "match_76": {
+    "team1": "Brasil",
+    "team2": "Japón"
+  },
+  "match_78": {
+    "team1": "Costa de Marfil"
+  },
+  "match_79": {
+    "team1": "México"
+  },
+  "match_81": {
+    "team1": "Estados Unidos",
+    "team2": "Bosnia y Herzegovina"
+  },
+  "match_85": {
+    "team1": "Suiza"
+  },
+  "match_86": {
+    "team1": "Argentina"
+  },
+  "match_88": {
+    "team1": "Australia"
+  }
+}
