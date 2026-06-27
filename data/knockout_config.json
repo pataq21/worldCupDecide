@@ -4,7 +4,8 @@
     "team2": "Canadá"
   },
   "match_74": {
-    "team1": "Alemania"
+    "team1": "Alemania",
+    "team2": "Paraguay"
   },
   "match_75": {
     "team1": "Países Bajos",
@@ -14,8 +15,13 @@
     "team1": "Brasil",
     "team2": "Japón"
   },
+  "match_77": {
+    "team1": "Francia",
+    "team2": "Suecia"
+  },
   "match_78": {
-    "team1": "Costa de Marfil"
+    "team1": "Costa de Marfil",
+    "team2": "Noruega"
   },
   "match_79": {
     "team1": "México"
@@ -24,13 +30,21 @@
     "team1": "Estados Unidos",
     "team2": "Bosnia y Herzegovina"
   },
+  "match_82": {
+    "team1": "Bélgica"
+  },
+  "match_84": {
+    "team1": "España"
+  },
   "match_85": {
     "team1": "Suiza"
   },
   "match_86": {
-    "team1": "Argentina"
+    "team1": "Argentina",
+    "team2": "Cabo Verde"
   },
   "match_88": {
-    "team1": "Australia"
+    "team1": "Australia",
+    "team2": "Egipto"
   }
 }
