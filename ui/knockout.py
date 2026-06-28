@@ -53,8 +53,25 @@ def tab_knockout():
     user_predictions = get_user_predictions(user)
     user_ko_preds = {k: v for k, v in user_predictions.items() if k.startswith("KO_")}
 
-    # Resolve user's bracket with saved predictions (for selectbox display)
-    user_bracket = resolve_user_knockout_bracket(user_ko_preds, real_bracket)
+    all_rounds = (
+        ROUND_OF_32 + ROUND_OF_16 + QUARTER_FINALS + SEMI_FINALS + THIRD_PLACE + FINAL
+    )
+
+    def _get_live_ko_predictions():
+        live_preds = {}
+        for match_num, _, _ in all_rounds:
+            key = f"ko_select_{user}_{match_num}"
+            selected = st.session_state.get(key)
+            if selected is None:
+                selected = user_ko_preds.get(f"KO_{match_num}")
+            if selected and selected != "—":
+                live_preds[f"KO_{match_num}"] = selected
+        return live_preds
+
+    # Resolve user's bracket with live predictions (for selectbox display)
+    user_bracket = resolve_user_knockout_bracket(
+        _get_live_ko_predictions(), real_bracket
+    )
 
     st.divider()
 
@@ -69,17 +86,13 @@ def tab_knockout():
         if st.button("💾 Guardar predicciones eliminatoria", type="primary"):
             _save_all_ko_predictions(user)
 
-    def _show_match_selector(
-        match_num, user_bracket_data, real_bracket_data, round_name=""
-    ):
+    def _show_match_selector(match_num, user_bracket_data, round_name=""):
         """Show a selectbox for picking the winner of a match with correctness indicator."""
         info = user_bracket_data[match_num]
-        real_info = real_bracket_data.get(match_num, {})
 
         t1 = info.get("team1")
         t2 = info.get("team2")
         current_winner = info.get("winner")
-        real_winner = real_info.get("winner")
 
         if not t1 and not t2:
             st.caption(f"P{match_num}: _Equipos pendientes_")
@@ -90,6 +103,12 @@ def tab_knockout():
             options.append(t1)
         if t2:
             options.append(t2)
+
+        key = f"ko_select_{user}_{match_num}"
+
+        # Reset stale winners that no longer belong to this propagated match.
+        if st.session_state.get(key) not in (None, *options):
+            st.session_state[key] = current_winner if current_winner in options else "—"
 
         # Determine current index
         current_idx = 0
@@ -106,7 +125,7 @@ def tab_knockout():
             label,
             options=options,
             index=current_idx,
-            key=f"ko_select_{user}_{match_num}",
+            key=key,
             disabled=locked,
         )
 
@@ -121,6 +140,9 @@ def tab_knockout():
     ]
 
     for round_title, round_matches in round_configs:
+        user_bracket = resolve_user_knockout_bracket(
+            _get_live_ko_predictions(), real_bracket
+        )
         with st.expander(round_title, expanded=(round_matches == ROUND_OF_32)):
             # Show matches in 2 columns for R32, otherwise single column
             if len(round_matches) > 4:
@@ -128,28 +150,16 @@ def tab_knockout():
                 half = len(round_matches) // 2
                 for i, (match_num, _, _) in enumerate(round_matches):
                     with col1 if i < half else col2:
-                        _show_match_selector(
-                            match_num, user_bracket, real_bracket, round_title
-                        )
+                        _show_match_selector(match_num, user_bracket, round_title)
             else:
                 for match_num, _, _ in round_matches:
-                    _show_match_selector(
-                        match_num, user_bracket, real_bracket, round_title
-                    )
+                    _show_match_selector(match_num, user_bracket, round_title)
 
     st.divider()
 
     # --- Rebuild bracket with current session_state values (for live updates) ---
     # Build predictions dict from current session_state selectboxes
-    live_user_ko_preds = {}
-    all_rounds = (
-        ROUND_OF_32 + ROUND_OF_16 + QUARTER_FINALS + SEMI_FINALS + THIRD_PLACE + FINAL
-    )
-    for match_num, _, _ in all_rounds:
-        key = f"ko_select_{user}_{match_num}"
-        selected = st.session_state.get(key)
-        if selected and selected != "—":
-            live_user_ko_preds[f"KO_{match_num}"] = selected
+    live_user_ko_preds = _get_live_ko_predictions()
 
     # Resolve user's bracket with live predictions
     user_bracket = resolve_user_knockout_bracket(live_user_ko_preds, real_bracket)
