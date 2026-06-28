@@ -24,24 +24,40 @@
     "team2": "Noruega"
   },
   "match_79": {
-    "team1": "México"
+    "team1": "México",
+    "team2": "Ecuador"
+  },
+  "match_80": {
+    "team1": "Inglaterra",
+    "team2": "RD Congo"
   },
   "match_81": {
     "team1": "Estados Unidos",
     "team2": "Bosnia y Herzegovina"
   },
   "match_82": {
-    "team1": "Bélgica"
+    "team1": "Bélgica",
+    "team2": "Senegal"
+  },
+  "match_83": {
+    "team1": "Portugal",
+    "team2": "Croacia"
   },
   "match_84": {
-    "team1": "España"
+    "team1": "España",
+    "team2": "Austria"
   },
   "match_85": {
-    "team1": "Suiza"
+    "team1": "Suiza",
+    "team2": "Argelia"
   },
   "match_86": {
     "team1": "Argentina",
     "team2": "Cabo Verde"
+  },
+  "match_87": {
+    "team1": "Colombia",
+    "team2": "Ghana"
   },
   "match_88": {
     "team1": "Australia",
