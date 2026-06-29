@@ -32,7 +32,7 @@ def tab_ranking():
     df_ranking = pd.DataFrame(ranking_data)
     st.dataframe(df_ranking, hide_index=True, width="stretch")
     st.caption(
-        "Puntuación: Grupos (3 pts exacto • 1 pt signo) • Eliminatoria (2/3/5/7/10/10 pts por R32/R16/QF/SF/3P/Final)"
+        "Puntuación: Grupos (3 pts exacto • 1 pt signo) • Eliminatoria (2/3/5/7/10/12 pts por R32/R16/QF/SF/3P/Final)"
     )
 
     st.subheader("Evolución por jornada")
