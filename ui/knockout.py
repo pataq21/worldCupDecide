@@ -32,7 +32,7 @@ def tab_knockout():
         return
 
     # Block predictions once the knockout stage starts (June 29)
-    KNOCKOUT_START = datetime(2026, 6, 29).date()
+    KNOCKOUT_START = datetime(2026, 6, 30).date()
     locked = datetime.now().date() >= KNOCKOUT_START
 
     if locked:
