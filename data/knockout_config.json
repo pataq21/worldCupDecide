@@ -6,15 +6,18 @@
   },
   "match_74": {
     "team1": "Alemania",
-    "team2": "Paraguay"
+    "team2": "Paraguay",
+    "winner": "Paraguay"
   },
   "match_75": {
     "team1": "Países Bajos",
-    "team2": "Marruecos"
+    "team2": "Marruecos",
+    "winner": "Marruecos"
   },
   "match_76": {
     "team1": "Brasil",
-    "team2": "Japón"
+    "team2": "Japón",
+    "winner": "Brasil"
   },
   "match_77": {
     "team1": "Francia",
