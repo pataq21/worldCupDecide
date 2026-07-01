@@ -21,15 +21,18 @@
   },
   "match_77": {
     "team1": "Francia",
-    "team2": "Suecia"
+    "team2": "Suecia",
+    "winner": "Francia"
   },
   "match_78": {
     "team1": "Costa de Marfil",
-    "team2": "Noruega"
+    "team2": "Noruega",
+    "winner": "Noruega"
   },
   "match_79": {
     "team1": "México",
-    "team2": "Ecuador"
+    "team2": "Ecuador",
+    "winner": "México"
   },
   "match_80": {
     "team1": "Inglaterra",
