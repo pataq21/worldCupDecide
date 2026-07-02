@@ -36,15 +36,18 @@
   },
   "match_80": {
     "team1": "Inglaterra",
-    "team2": "RD Congo"
+    "team2": "RD Congo",
+    "winner": "Inglaterra"
   },
   "match_81": {
     "team1": "Estados Unidos",
-    "team2": "Bosnia y Herzegovina"
+    "team2": "Bosnia y Herzegovina",
+    "winner": "Estados Unidos"
   },
   "match_82": {
     "team1": "Bélgica",
-    "team2": "Senegal"
+    "team2": "Senegal",
+    "winner": "Bélgica"
   },
   "match_83": {
     "team1": "Portugal",
