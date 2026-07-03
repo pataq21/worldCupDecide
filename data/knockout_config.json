@@ -51,15 +51,18 @@
   },
   "match_83": {
     "team1": "Portugal",
-    "team2": "Croacia"
+    "team2": "Croacia",
+    "winner": "Portugal"
   },
   "match_84": {
     "team1": "España",
-    "team2": "Austria"
+    "team2": "Austria",
+    "winner": "España"
   },
   "match_85": {
     "team1": "Suiza",
-    "team2": "Argelia"
+    "team2": "Argelia",
+    "winner": "Suiza"
   },
   "match_86": {
     "team1": "Argentina",
