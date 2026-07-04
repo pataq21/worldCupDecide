@@ -66,14 +66,17 @@
   },
   "match_86": {
     "team1": "Argentina",
-    "team2": "Cabo Verde"
+    "team2": "Cabo Verde",
+    "winner": "Argentina"
   },
   "match_87": {
     "team1": "Colombia",
-    "team2": "Ghana"
+    "team2": "Ghana",
+    "winner": "Colombia"
   },
   "match_88": {
     "team1": "Australia",
-    "team2": "Egipto"
+    "team2": "Egipto",
+    "winner": "Egipto"
   }
 }
