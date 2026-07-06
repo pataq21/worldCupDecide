@@ -3,7 +3,7 @@ from datetime import datetime
 import streamlit as st
 
 from core.data import (
-    calculate_knockout_points,
+    calculate_knockout_points_by_match,
     get_user_predictions,
     load_knockout_config,
     load_predictions,
@@ -166,12 +166,15 @@ def tab_knockout():
 
     # Show visual bracket
     st.subheader("🏆 Cuadro del Torneo")
-    bracket_html = generate_full_bracket_html(user_bracket)
+    knockout_points_by_match = calculate_knockout_points_by_match(
+        live_user_ko_preds, real_bracket
+    )
+    bracket_html = generate_full_bracket_html(user_bracket, knockout_points_by_match)
     st.html(bracket_html)
 
     # Calculate and show points
-    knockout_points = calculate_knockout_points(live_user_ko_preds, real_bracket)
-    max_possible_points = (8 * 2) + (4 * 3) + (2 * 5) + (2 * 7) + 10  # 75 total
+    knockout_points = sum(knockout_points_by_match.values())
+    max_possible_points = (16 * 2) + (8 * 3) + (4 * 5) + (2 * 7) + 10 + 12
     st.metric(
         "Puntos Fase Eliminatoria",
         f"{knockout_points} / {max_possible_points}",

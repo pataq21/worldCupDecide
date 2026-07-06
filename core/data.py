@@ -168,10 +168,12 @@ def save_knockout_config(config: Dict) -> None:
         json.dump(config, f, ensure_ascii=False, indent=2)
 
 
-def calculate_knockout_points(user_predictions: Dict, real_bracket: Dict) -> int:
+def calculate_knockout_points_by_match(
+    user_predictions: Dict, real_bracket: Dict
+) -> Dict[int, int]:
     """
-    Calculate knockout stage points for a user.
-    Compare user predictions vs real bracket and sum points by round.
+    Calculate knockout stage points per match for a user.
+    Compare user predictions vs real bracket winners and return earned points by match.
 
     Points:
     - Dieciseisavos (R32): 2 points per correct winner
@@ -179,7 +181,7 @@ def calculate_knockout_points(user_predictions: Dict, real_bracket: Dict) -> int
     - Cuartos (QF): 5 points per correct winner
     - Semifinales (SF): 7 points per correct winner
     - Tercer Puesto (3rd Place): 10 points
-    - Campeón (Final winner): 10 points
+    - Campeón (Final winner): 12 points
     """
     from tournament.knockout import (
         FINAL,
@@ -190,48 +192,42 @@ def calculate_knockout_points(user_predictions: Dict, real_bracket: Dict) -> int
         THIRD_PLACE,
     )
 
-    total_points = 0
+    points_by_match = {}
+
+    def _add_points(round_matches, points):
+        for match_num, _, _ in round_matches:
+            user_winner = user_predictions.get(f"KO_{match_num}")
+            real_winner = real_bracket.get(match_num, {}).get("winner")
+            if user_winner and real_winner and user_winner == real_winner:
+                points_by_match[match_num] = points
 
     # R32: 2 points per correct
-    for match_num, _, _ in ROUND_OF_32:
-        user_winner = user_predictions.get(f"KO_{match_num}")
-        real_winner = real_bracket.get(match_num, {}).get("winner")
-        if user_winner and real_winner and user_winner == real_winner:
-            total_points += 2
+    _add_points(ROUND_OF_32, 2)
 
     # R16: 3 points per correct
-    for match_num, _, _ in ROUND_OF_16:
-        user_winner = user_predictions.get(f"KO_{match_num}")
-        real_winner = real_bracket.get(match_num, {}).get("winner")
-        if user_winner and real_winner and user_winner == real_winner:
-            total_points += 3
+    _add_points(ROUND_OF_16, 3)
 
     # QF: 5 points per correct
-    for match_num, _, _ in QUARTER_FINALS:
-        user_winner = user_predictions.get(f"KO_{match_num}")
-        real_winner = real_bracket.get(match_num, {}).get("winner")
-        if user_winner and real_winner and user_winner == real_winner:
-            total_points += 5
+    _add_points(QUARTER_FINALS, 5)
 
     # SF: 7 points per correct
-    for match_num, _, _ in SEMI_FINALS:
-        user_winner = user_predictions.get(f"KO_{match_num}")
-        real_winner = real_bracket.get(match_num, {}).get("winner")
-        if user_winner and real_winner and user_winner == real_winner:
-            total_points += 7
+    _add_points(SEMI_FINALS, 7)
 
     # 3rd Place: 10 points
-    for match_num, _, _ in THIRD_PLACE:
-        user_winner = user_predictions.get(f"KO_{match_num}")
-        real_winner = real_bracket.get(match_num, {}).get("winner")
-        if user_winner and real_winner and user_winner == real_winner:
-            total_points += 10
+    _add_points(THIRD_PLACE, 10)
 
-    # Final: 10 points if correct
-    for match_num, _, _ in FINAL:
-        user_winner = user_predictions.get(f"KO_{match_num}")
-        real_winner = real_bracket.get(match_num, {}).get("winner")
-        if user_winner and real_winner and user_winner == real_winner:
-            total_points += 12
+    # Final: 12 points if correct
+    _add_points(FINAL, 12)
+
+    return points_by_match
+
+
+def calculate_knockout_points(user_predictions: Dict, real_bracket: Dict) -> int:
+    """
+    Calculate knockout stage points for a user.
+    Compare user predictions vs real bracket and sum points by round.
+    """
+    points_by_match = calculate_knockout_points_by_match(user_predictions, real_bracket)
+    total_points = sum(points_by_match.values())
 
     return total_points

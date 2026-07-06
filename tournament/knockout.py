@@ -363,14 +363,21 @@ def resolve_user_knockout_bracket(
     return user_bracket
 
 
-def generate_bracket_html(user_bracket: Dict[int, Dict], half: str = "left") -> str:
+def generate_bracket_html(
+    user_bracket: Dict[int, Dict],
+    points_by_match: Dict[int, int] | None = None,
+    half: str = "left",
+) -> str:
     """Generate HTML for one half of the bracket."""
     config = LEFT_BRACKET if half == "left" else RIGHT_BRACKET
+    points_by_match = points_by_match or {}
 
     def _team_cell(match_num, team, is_winner=False):
         name = team if team else "—"
         cls = "team winner" if is_winner else "team"
-        return f'<div class="{cls}">{name}</div>'
+        points = points_by_match.get(match_num) if is_winner else None
+        points_html = f'<span class="points-badge">+{points}</span>' if points else ""
+        return f'<div class="{cls}"><span class="team-name">{name}</span>{points_html}</div>'
 
     def _match_html(match_num):
         info = user_bracket.get(match_num, {})
@@ -404,10 +411,13 @@ def generate_bracket_html(user_bracket: Dict[int, Dict], half: str = "left") -> 
     return "\n".join(rounds_html)
 
 
-def generate_full_bracket_html(user_bracket: Dict[int, Dict]) -> str:
+def generate_full_bracket_html(
+    user_bracket: Dict[int, Dict], points_by_match: Dict[int, int] | None = None
+) -> str:
     """Generate complete HTML bracket visualization."""
-    left_html = generate_bracket_html(user_bracket, "left")
-    right_html = generate_bracket_html(user_bracket, "right")
+    points_by_match = points_by_match or {}
+    left_html = generate_bracket_html(user_bracket, points_by_match, "left")
+    right_html = generate_bracket_html(user_bracket, points_by_match, "right")
 
     # Final and 3rd place
     final_info = user_bracket.get(104, {})
@@ -419,13 +429,16 @@ def generate_full_bracket_html(user_bracket: Dict[int, Dict]) -> str:
         winner = info.get("winner")
         w1 = "winner" if winner == info.get("team1") and info.get("team1") else ""
         w2 = "winner" if winner == info.get("team2") and info.get("team2") else ""
+        points = points_by_match.get(match_num)
+        p1 = f'<span class="points-badge">+{points}</span>' if points and w1 else ""
+        p2 = f'<span class="points-badge">+{points}</span>' if points and w2 else ""
         return (
             f'<div class="final-match">'
             f'  <div class="round-title">{label}</div>'
             f'  <div class="match" data-match="{match_num}">'
             f'    <div class="match-num">P{match_num}</div>'
-            f'    <div class="team {w1}">{t1}</div>'
-            f'    <div class="team {w2}">{t2}</div>'
+            f'    <div class="team {w1}"><span class="team-name">{t1}</span>{p1}</div>'
+            f'    <div class="team {w2}"><span class="team-name">{t2}</span>{p2}</div>'
             f"  </div>"
             f"</div>"
         )
@@ -492,10 +505,27 @@ def generate_full_bracket_html(user_bracket: Dict[int, Dict]) -> str:
     .team {
         padding: 2px 4px;
         border-bottom: 1px solid #eee;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 6px;
         white-space: nowrap;
+        color: #222;
+    }
+    .team-name {
         overflow: hidden;
         text-overflow: ellipsis;
-        color: #222;
+    }
+    .points-badge {
+        flex: 0 0 auto;
+        font-size: 10px;
+        font-weight: 700;
+        color: #1b7f37;
+        background: #dff5e5;
+        border: 1px solid #9fdfb0;
+        border-radius: 999px;
+        padding: 0 5px;
+        line-height: 16px;
     }
     .team:last-child {
         border-bottom: none;
