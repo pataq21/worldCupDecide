@@ -5,6 +5,7 @@ from core.data import get_users, register_user
 from ui.admin import tab_admin
 from ui.groups import tab_group_stage
 from ui.knockout import tab_knockout
+from ui.knockout_results import tab_knockout_results
 from ui.predictions import tab_predictions
 from ui.ranking import tab_ranking
 from ui.results import tab_results
@@ -72,12 +73,13 @@ def main():
         st.sidebar.success(f"✅ Sesión: {user}")
 
     # Create tabs
-    tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs(
+    tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs(
         [
             "⚽ Fase de grupos",
             "📋 Predicciones vs resultados",
             "📊 Tabla de posiciones",
             "🏅 Fase eliminatoria",
+            "⚡ Eliminatoria: resultados",
             "🏆 Clasificación",
             "🔧 Admin",
         ]
@@ -96,9 +98,12 @@ def main():
         tab_knockout()
 
     with tab5:
-        tab_ranking()
+        tab_knockout_results()
 
     with tab6:
+        tab_ranking()
+
+    with tab7:
         tab_admin()
 
 
