@@ -78,5 +78,17 @@
     "team1": "Australia",
     "team2": "Egipto",
     "winner": "Egipto"
+  },
+  "match_89": {
+    "winner": "Francia"
+  },
+  "match_90": {
+    "winner": "Marruecos"
+  },
+  "match_91": {
+    "winner": "Noruega"
+  },
+  "match_92": {
+    "winner": "Inglaterra"
   }
 }
