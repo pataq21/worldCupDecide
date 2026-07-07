@@ -12,7 +12,16 @@ from core.data import (
     load_results,
     load_users,
 )
-from tournament.knockout import fill_bracket, fill_bracket_from_config
+from tournament.knockout import (
+    FINAL,
+    QUARTER_FINALS,
+    ROUND_OF_16,
+    ROUND_OF_32,
+    SEMI_FINALS,
+    THIRD_PLACE,
+    fill_bracket,
+    fill_bracket_from_config,
+)
 
 _SCHEDULE_PATH = Path(__file__).parent.parent / "data" / "schedule.json"
 
@@ -97,8 +106,18 @@ def get_ranking_detailed() -> List[tuple]:
     return sorted(rows, key=lambda x: x[1]["points"], reverse=True)
 
 
+_KO_ROUND_DEFS = [
+    ("R32", ROUND_OF_32, 2),
+    ("R16", ROUND_OF_16, 3),
+    ("QF", QUARTER_FINALS, 5),
+    ("SF", SEMI_FINALS, 7),
+    ("3P", THIRD_PLACE, 10),
+    ("Final", FINAL, 12),
+]
+
+
 def get_points_evolution() -> pd.DataFrame | None:
-    """Cumulative points per user per match day. Returns DataFrame indexed 0..N or None."""
+    """Cumulative points per user per match day + knockout round. Returns DataFrame or None."""
     schedule = json.loads(_SCHEDULE_PATH.read_text(encoding="utf-8"))
     match_to_day = {
         mid: s["match_day"] for mid, s in schedule.items() if s.get("match_day")
@@ -112,7 +131,7 @@ def get_points_evolution() -> pd.DataFrame | None:
     if not real_users:
         return None
 
-    # Accumulate incremental points per user per day
+    # --- Group stage: points per match day ---
     day_pts: dict[str, dict[int, int]] = {u: {} for u in real_users}
     for mid, result in results.items():
         if mid == "_meta":
@@ -141,9 +160,35 @@ def get_points_evolution() -> pd.DataFrame | None:
     played_days = sorted(
         {match_to_day[mid] for mid in results if mid != "_meta" and mid in match_to_day}
     )
-    if not played_days:
+
+    # --- Knockout stage: points per round ---
+    knockout_config = load_knockout_config()
+    real_bracket = (
+        fill_bracket_from_config(knockout_config) if knockout_config else fill_bracket()
+    )
+
+    ko_pts: dict[str, dict[str, int]] = {u: {} for u in real_users}
+    played_ko_rounds: list[str] = []
+
+    for round_label, round_matches, round_pts in _KO_ROUND_DEFS:
+        round_has_result = False
+        for match_num, _, _ in round_matches:
+            winner = real_bracket.get(match_num, {}).get("winner")
+            if not winner:
+                continue
+            round_has_result = True
+            for user in real_users:
+                user_pred = predictions.get(user, {}).get(f"KO_{match_num}")
+                if user_pred == winner:
+                    ko_pts[user][round_label] = ko_pts[user].get(round_label, 0) + round_pts
+        if round_has_result:
+            played_ko_rounds.append(round_label)
+
+    if not played_days and not played_ko_rounds:
         return None
 
+    # Build combined cumulative series
+    index_labels = ["Inicio"] + [f"J{d}" for d in played_days] + played_ko_rounds
     records = {}
     for user in real_users:
         cumulative = 0
@@ -151,6 +196,9 @@ def get_points_evolution() -> pd.DataFrame | None:
         for day in played_days:
             cumulative += day_pts[user].get(day, 0)
             vals.append(cumulative)
+        for round_label in played_ko_rounds:
+            cumulative += ko_pts[user].get(round_label, 0)
+            vals.append(cumulative)
         records[user] = vals
 
-    return pd.DataFrame(records, index=[0] + played_days)
+    return pd.DataFrame(records, index=index_labels)

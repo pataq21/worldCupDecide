@@ -1,3 +1,4 @@
+import altair as alt
 import pandas as pd
 import streamlit as st
 
@@ -45,9 +46,24 @@ def tab_ranking():
             default=all_users[:5] if len(all_users) > 5 else all_users,
         )
         if selected:
-            st.line_chart(
-                evolution_df[selected], x_label="Jornada", y_label="Puntos acumulados"
+            ordered = evolution_df.index.tolist()
+            melted = (
+                evolution_df[selected]
+                .reset_index()
+                .rename(columns={"index": "Jornada"})
+                .melt(id_vars="Jornada", var_name="Usuario", value_name="Puntos")
             )
+            chart = (
+                alt.Chart(melted)
+                .mark_line(point=True)
+                .encode(
+                    x=alt.X("Jornada:O", sort=ordered, title="Jornada / Ronda"),
+                    y=alt.Y("Puntos:Q", title="Puntos acumulados"),
+                    color=alt.Color("Usuario:N"),
+                    tooltip=["Jornada", "Usuario", "Puntos"],
+                )
+            )
+            st.altair_chart(chart, use_container_width=True)
         else:
             st.info("Selecciona al menos un usuario para ver la gráfica")
     else:
