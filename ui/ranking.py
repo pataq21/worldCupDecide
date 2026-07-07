@@ -43,7 +43,7 @@ def tab_ranking():
         selected = st.multiselect(
             "Mostrar usuarios:",
             options=all_users,
-            default=all_users[:5] if len(all_users) > 5 else all_users,
+            default=[name for name, _ in ranking[:5]] if len(all_users) > 5 else all_users,
         )
         if selected:
             ordered = evolution_df.index.tolist()
