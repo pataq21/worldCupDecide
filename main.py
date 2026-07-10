@@ -72,33 +72,42 @@ def main():
         st.session_state.current_user = user
         st.sidebar.success(f"✅ Sesión: {user}")
 
-    # Top-level tabs
-    grupos, eliminatoria, clasificacion, admin = st.tabs(
-        ["⚽ Fase de grupos", "🏅 Fase eliminatoria", "🏆 Clasificación", "🔧 Admin"]
+    section = st.radio(
+        "Sección",
+        ["⚽ Fase de grupos", "🏅 Fase eliminatoria", "🏆 Clasificación", "🔧 Admin"],
+        horizontal=True,
     )
 
-    with grupos:
-        sub1, sub2, sub3 = st.tabs(
-            ["✏️ Predicciones", "📋 Resultados", "📊 Posiciones"]
+    if section == "⚽ Fase de grupos":
+        group_view = st.radio(
+            "Vista de fase de grupos",
+            ["✏️ Predicciones", "📋 Resultados", "📊 Posiciones"],
+            horizontal=True,
         )
-        with sub1:
+
+        if group_view == "✏️ Predicciones":
             tab_predictions()
-        with sub2:
+        elif group_view == "📋 Resultados":
             tab_results()
-        with sub3:
+        else:
             tab_group_stage()
 
-    with eliminatoria:
-        sub4, sub5 = st.tabs(["✏️ Predicciones", "⚡ Resultados"])
-        with sub4:
+    elif section == "🏅 Fase eliminatoria":
+        knockout_view = st.radio(
+            "Vista de fase eliminatoria",
+            ["✏️ Predicciones", "⚡ Resultados"],
+            horizontal=True,
+        )
+
+        if knockout_view == "✏️ Predicciones":
             tab_knockout()
-        with sub5:
+        else:
             tab_knockout_results()
 
-    with clasificacion:
+    elif section == "🏆 Clasificación":
         tab_ranking()
 
-    with admin:
+    else:
         tab_admin()
 
 
