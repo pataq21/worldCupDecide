@@ -6,6 +6,7 @@ import pandas as pd
 
 from core.data import (
     calculate_knockout_points,
+    get_user_predictions,
     load_knockout_config,
     load_predictions,
     load_results,
@@ -36,16 +37,8 @@ def _get_outcome(goals1: int, goals2: int) -> str:
 
 def calculate_user_stats(user: str) -> dict:
     """Return points (group + knockout), exact score count, and correct sign (1/X/2) count for a user."""
-    all_predictions = load_predictions()
+    predictions = get_user_predictions(user)
     results = load_results()
-    knockout_config = load_knockout_config()
-    return _calculate_user_stats(user, all_predictions, results, knockout_config)
-
-
-def _calculate_user_stats(
-    user: str, all_predictions: dict, results: dict, knockout_config: dict
-) -> dict:
-    predictions = all_predictions.get(user, {})
     group_points = 0
     exact = 0
     sign = 0
@@ -75,6 +68,7 @@ def _calculate_user_stats(
             sign += 1
 
     # Calculate knockout stage points
+    knockout_config = load_knockout_config()
     if knockout_config:
         real_bracket = fill_bracket_from_config(knockout_config)
     else:
@@ -101,31 +95,14 @@ def calculate_user_points(user: str) -> int:
 def get_ranking() -> List[tuple]:
     """Get user ranking sorted by points (computed dynamically)."""
     users = load_users()
-    predictions = load_predictions()
-    results = load_results()
-    knockout_config = load_knockout_config()
-    ranking = [
-        (
-            name,
-            _calculate_user_stats(name, predictions, results, knockout_config)[
-                "points"
-            ],
-        )
-        for name in users
-    ]
+    ranking = [(name, calculate_user_points(name)) for name in users]
     return sorted(ranking, key=lambda x: x[1], reverse=True)
 
 
 def get_ranking_detailed() -> List[tuple]:
     """Get user ranking with points, exact scores, and correct signs."""
     users = load_users()
-    predictions = load_predictions()
-    results = load_results()
-    knockout_config = load_knockout_config()
-    rows = [
-        (name, _calculate_user_stats(name, predictions, results, knockout_config))
-        for name in users
-    ]
+    rows = [(name, calculate_user_stats(name)) for name in users]
     return sorted(rows, key=lambda x: x[1]["points"], reverse=True)
 
 
@@ -203,9 +180,7 @@ def get_points_evolution() -> pd.DataFrame | None:
             for user in real_users:
                 user_pred = predictions.get(user, {}).get(f"KO_{match_num}")
                 if user_pred == winner:
-                    ko_pts[user][round_label] = (
-                        ko_pts[user].get(round_label, 0) + round_pts
-                    )
+                    ko_pts[user][round_label] = ko_pts[user].get(round_label, 0) + round_pts
         if round_has_result:
             played_ko_rounds.append(round_label)
 
